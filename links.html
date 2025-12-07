@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quick Links - Elementrix SMP</title>
+    <meta name="description" content="Quick links to Elementrix Discord, store, voting, and rules.">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a href="index.html" class="logo">
+                <span class="logo-text">ELEMENTRIX</span>
+            </a>
+            
+            <button class="mobile-menu-toggle" aria-label="Toggle menu">☰</button>
+            
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="features.html">Features</a></li>
+                <li><a href="how-to-join.html">How to Join</a></li>
+                <li><a href="links.html" class="active">Links</a></li>
+            </ul>
+            
+            <div class="nav-right">
+                <span class="server-pill">Cracked • Elemental SMP</span>
+                <button class="btn btn-primary btn-small" data-nav-copy-ip>Copy IP</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <header class="page-header">
+        <div class="page-header-container">
+            <h1 class="page-title">Quick Links</h1>
+            <p class="page-subtitle">
+                Everything you need to stay connected with Elementrix.
+            </p>
+        </div>
+    </header>
+
+    <!-- Links Section -->
+    <section class="section" id="links" style="padding-top: 0;">
+        <div class="section-container">
+            <div class="links-grid">
+                <!-- Discord Card -->
+                <a href="#" class="link-card" data-discord-link>
+                    <div class="link-card-icon">💬</div>
+                    <div class="link-card-title">Discord</div>
+                    <p class="link-card-desc">
+                        Announcements, bug reports, staff applications, and community chat. This is where everything happens.
+                    </p>
+                    <span class="link-card-tag" data-discord-tag>discord.com/...</span>
+                </a>
+                
+                <!-- Store Card -->
+                <a href="#" class="link-card" data-store-link>
+                    <div class="link-card-icon">🛒</div>
+                    <div class="link-card-title">Store</div>
+                    <p class="link-card-desc">
+                        Ranks, cosmetics, and extras that don't affect gameplay. Support the server while looking cool.
+                    </p>
+                    <span class="link-card-tag">Optional • Cosmetic-focused</span>
+                </a>
+                
+                <!-- Vote Card -->
+                <a href="#" class="link-card" data-vote-link>
+                    <div class="link-card-icon">🗳️</div>
+                    <div class="link-card-title">Vote</div>
+                    <p class="link-card-desc">
+                        Vote daily to boost the server on listing sites and earn in-game rewards.
+                    </p>
+                    <span class="link-card-tag">+ Keys & Crates</span>
+                </a>
+                
+                <!-- Rules Card -->
+                <a href="#" class="link-card" data-rules-link>
+                    <div class="link-card-icon">📜</div>
+                    <div class="link-card-title">Rules & FAQs</div>
+                    <p class="link-card-desc">
+                        Read the rules before you play. "I didn't know" won't save you from a ban.
+                    </p>
+                    <span class="link-card-tag">No excuses later.</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Social Section -->
+    <section class="section" style="padding-top: 0;">
+        <div class="section-container">
+            <div class="section-header">
+                <h2 class="section-title">Stay Updated</h2>
+                <p class="section-subtitle">Don't miss events, updates, or important announcements.</p>
+            </div>
+            
+            <div class="cards-grid">
+                <div class="card" style="text-align: center;">
+                    <div class="card-title" style="justify-content: center;">
+                        <div class="card-icon">📢</div>
+                        Announcements
+                    </div>
+                    <p class="card-text">
+                        Major updates, events, and server news are posted on Discord. Make sure notifications are on for the announcements channel.
+                    </p>
+                    <a href="#" class="btn btn-primary btn-small" data-discord-link>Join Discord</a>
+                </div>
+                
+                <div class="card" style="text-align: center;">
+                    <div class="card-title" style="justify-content: center;">
+                        <div class="card-icon">🎉</div>
+                        Events
+                    </div>
+                    <p class="card-text">
+                        Weekly tournaments, clan wars, and special events with prizes. Check the events channel on Discord for schedules.
+                    </p>
+                    <a href="#" class="btn btn-secondary btn-small" data-discord-link>See Events</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Server IP Section -->
+    <section class="section" style="text-align: center; padding-top: 0;">
+        <div class="section-container">
+            <div class="ip-box" style="max-width: 400px; margin: 0 auto;">
+                <div class="ip-box-label">Server Address</div>
+                <div class="ip-box-content">
+                    <span class="ip-text" data-ip-text>play.elementrix.it</span>
+                    <button class="btn btn-secondary btn-small" data-copy-ip>Copy</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <p class="footer-text">© <span id="footer-year"></span> Elementrix SMP. Not affiliated with Mojang.</p>
+            <a href="#" class="footer-link" onclick="scrollToTop(); return false;">Back to top ↑</a>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
