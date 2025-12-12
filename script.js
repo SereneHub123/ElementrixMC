@@ -6,9 +6,9 @@ const DISCORD_URL = "https://discord.com/f33Xv67uVz";
 const SAME_DOMAIN = false;
 
 // Placeholder URLs (replace these later)
-const STORE_URL = "#STORE_URL_PLACEHOLDER";
-const VOTE_URL = "#VOTE_URL_PLACEHOLDER";
-const RULES_URL = "#RULES_URL_PLACEHOLDER";
+const STORE_URL = "#";
+const VOTE_URL = "#";
+const RULES_URL = "#";
 
 // ===== DOM READY =====
 document.addEventListener("DOMContentLoaded", function() {
@@ -16,12 +16,11 @@ document.addEventListener("DOMContentLoaded", function() {
     initCopyButtons();
     initDynamicContent();
     initFooterYear();
+    initScrollHighlight();
     
-    // Only run ping on pages with status card
-    if (document.getElementById("status-text")) {
-        pingServer();
-        setInterval(pingServer, 15000);
-    }
+    // Server Ping
+    pingServer();
+    setInterval(pingServer, 15000);
 });
 
 // ===== NAVIGATION =====
@@ -44,13 +43,36 @@ function initNavigation() {
             });
         });
     }
-    
-    // Set active nav link based on current page
-    const currentPage = window.location.pathname.split("/").pop() || "index.html";
-    document.querySelectorAll(".nav-links a").forEach(function(link) {
-        const href = link.getAttribute("href");
-        if (href === currentPage || (currentPage === "" && href === "index.html")) {
-            link.classList.add("active");
+}
+
+// ===== SCROLL HIGHLIGHTING =====
+function initScrollHighlight() {
+    const sections = document.querySelectorAll('section');
+    const navLinks = document.querySelectorAll('.nav-links a');
+
+    // Simple scroll spy
+    window.addEventListener('scroll', () => {
+        let current = '';
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop;
+            const sectionHeight = section.clientHeight;
+            // 150px offset for the navbar
+            if (pageYOffset >= (sectionTop - 150)) {
+                current = section.getAttribute('id');
+            }
+        });
+
+        navLinks.forEach(link => {
+            link.classList.remove('active');
+            if (link.getAttribute('href').includes(current)) {
+                link.classList.add('active');
+            }
+        });
+        
+        // Highlight home if at the very top
+        if (window.scrollY < 100) {
+            navLinks.forEach(link => link.classList.remove('active'));
+            if(navLinks[0]) navLinks[0].classList.add('active');
         }
     });
 }
@@ -64,7 +86,7 @@ function initCopyButtons() {
         });
     });
     
-    // Navbar Copy IP button (scrolls to IP box first if on home page)
+    // Navbar Copy IP button (scrolls to IP box)
     const navCopyBtn = document.querySelector("[data-nav-copy-ip]");
     if (navCopyBtn) {
         navCopyBtn.addEventListener("click", function() {
@@ -73,7 +95,6 @@ function initCopyButtons() {
                 ipBox.scrollIntoView({ behavior: "smooth", block: "center" });
                 setTimeout(copyIP, 300);
             } else {
-                // Not on home page, just copy
                 copyIP();
             }
         });
@@ -81,8 +102,8 @@ function initCopyButtons() {
 }
 
 function copyIP() {
-    if (MC_HOST.includes("PLACEHOLDER") || MC_HOST === "") {
-        alert("Server IP not configured yet. Please edit the script.js file.");
+    if (MC_HOST === "") {
+        alert("Server IP not configured.");
         return;
     }
     
@@ -123,33 +144,13 @@ function showCopyFeedback(message) {
 
 // ===== DYNAMIC CONTENT =====
 function initDynamicContent() {
-    // Set IP text
-    document.querySelectorAll("[data-ip-text]").forEach(function(el) {
-        el.textContent = MC_HOST;
-    });
+    document.querySelectorAll("[data-ip-text]").forEach(el => el.textContent = MC_HOST);
+    document.querySelectorAll("[data-discord-link]").forEach(el => el.href = DISCORD_URL);
+    document.querySelectorAll("[data-store-link]").forEach(el => el.href = STORE_URL);
+    document.querySelectorAll("[data-vote-link]").forEach(el => el.href = VOTE_URL);
+    document.querySelectorAll("[data-rules-link]").forEach(el => el.href = RULES_URL);
     
-    // Set Discord links
-    document.querySelectorAll("[data-discord-link]").forEach(function(el) {
-        el.href = DISCORD_URL;
-    });
-    
-    // Set Store links
-    document.querySelectorAll("[data-store-link]").forEach(function(el) {
-        el.href = STORE_URL;
-    });
-    
-    // Set Vote links
-    document.querySelectorAll("[data-vote-link]").forEach(function(el) {
-        el.href = VOTE_URL;
-    });
-    
-    // Set Rules links
-    document.querySelectorAll("[data-rules-link]").forEach(function(el) {
-        el.href = RULES_URL;
-    });
-    
-    // Set Discord tag display
-    document.querySelectorAll("[data-discord-tag]").forEach(function(el) {
+    document.querySelectorAll("[data-discord-tag]").forEach(el => {
         el.textContent = DISCORD_URL.replace("https://", "").substring(0, 25) + "...";
     });
 }
@@ -177,22 +178,14 @@ function pingServer() {
     
     const startTime = performance.now();
     const controller = new AbortController();
-    const timeoutId = setTimeout(function() {
-        controller.abort();
-    }, 7000);
+    const timeoutId = setTimeout(() => controller.abort(), 7000);
     
-    // Determine ping URL
-    let pingUrl;
-    if (SAME_DOMAIN) {
-        pingUrl = window.location.origin + "/status-ping?" + Date.now();
-    } else {
-        pingUrl = "https://" + MC_HOST + "/?" + Date.now();
-    }
+    const pingUrl = "https://" + MC_HOST + "/?" + Date.now();
     
     fetch(pingUrl, {
         mode: "no-cors",
         signal: controller.signal
-    }).then(function() {
+    }).then(() => {
         clearTimeout(timeoutId);
         const ping = Math.round(performance.now() - startTime);
         
@@ -200,10 +193,9 @@ function pingServer() {
         statusText.className = "status-value online";
         statusIndicator.className = "status-indicator online";
         pingText.textContent = ping + " ms";
-    }).catch(function(err) {
+    }).catch((err) => {
         clearTimeout(timeoutId);
-        
-        // Even with no-cors, a network error means offline
+        // Even with no-cors, a network error implies offline/unreachable for this context
         statusText.textContent = "Offline";
         statusText.className = "status-value offline";
         statusIndicator.className = "status-indicator offline";
@@ -211,25 +203,4 @@ function pingServer() {
     });
 }
 
-// ===== SMOOTH SCROLL FOR ANCHOR LINKS =====
-document.addEventListener("click", function(e) {
-    const link = e.target.closest("a[href^='#']");
-    if (link) {
-        const targetId = link.getAttribute("href");
-        if (targetId === "#") {
-            e.preventDefault();
-            window.scrollTo({ top: 0, behavior: "smooth" });
-            return;
-        }
-        const target = document.querySelector(targetId);
-        if (target) {
-            e.preventDefault();
-            target.scrollIntoView({ behavior: "smooth" });
-        }
-    }
-});
-
 // ===== BACK TO TOP =====
-function scrollToTop() {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-}
