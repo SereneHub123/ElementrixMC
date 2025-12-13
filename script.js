@@ -1,206 +1,233 @@
-/* ===== ELEMENTRIX SMP - SHARED JAVASCRIPT ===== */
+/* sum js (WORKKKK ON PROGRESS ;-; */
 
-// Server Configuration
-const MC_HOST = "play.elementrix.it";
-const DISCORD_URL = "https://discord.com/f33Xv67uVz";
-const SAME_DOMAIN = false;
-
-// Placeholder URLs (replace these later)
-const STORE_URL = "#";
+// config & constants 
+const SERVER_IP = "play.elementrix.it";
+const API_URL = "https://api.mcsrvstat.us/2/" + SERVER_IP;
+const DISCORD_URL = "https://dsc.gg/elementrixmc"; // best server
+const STORE_URL = "#"; 
 const VOTE_URL = "#";
-const RULES_URL = "#";
 
-// ===== DOM READY =====
-document.addEventListener("DOMContentLoaded", function() {
-    initNavigation();
+document.addEventListener("DOMContentLoaded", () => {
+    initServerStatus();
     initCopyButtons();
-    initDynamicContent();
-    initFooterYear();
-    initScrollHighlight();
-    
-    // Server Ping
-    pingServer();
-    setInterval(pingServer, 15000);
+    initScrollAnimations();
+    initLinks();
+    updateFooterYear();
+    initMobileMenu();
+    initThemeToggle();
 });
 
-// ===== NAVIGATION =====
-function initNavigation() {
-    const menuToggle = document.querySelector(".mobile-menu-toggle");
-    const navLinks = document.querySelector(".nav-links");
+/* theme toggle: light too dark */
+function initThemeToggle() {
+    const toggle = document.getElementById('theme-toggle');
+    if (!toggle) return;
+
+    const icon = document.getElementById('theme-icon');
+
+    function applyTheme(theme) {
+        document.documentElement.setAttribute('data-theme', theme);
+        localStorage.setItem('theme', theme);
+        const isDark = theme === 'dark';
+        toggle.setAttribute('aria-pressed', isDark ? 'true' : 'false');
+        toggle.title = isDark ? 'Switch to light mode' : 'Switch to dark mode';
+        // swap simple icon (sun/moon)
+        if (icon) {
+            // Use template strings for safe, clean SVG fragments
+            icon.innerHTML = isDark
+                ? `
+                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                `
+                : `
+                    <circle cx="12" cy="12" r="4"></circle>
+                    <path d="M12 2v2"></path>
+                    <path d="M12 20v2"></path>
+                    <path d="M4.93 4.93l1.41 1.41"></path>
+                    <path d="M17.66 17.66l1.41 1.41"></path>
+                    <path d="M2 12h2"></path>
+                    <path d="M20 12h2"></path>
+                    <path d="M4.93 19.07l1.41-1.41"></path>
+                    <path d="M17.66 6.34l1.41-1.41"></path>
+                `;
+        }
+        // Announce for assistive tech
+        const statusEl = document.getElementById('theme-status');
+        if (statusEl) statusEl.innerText = isDark ? 'Dark mode enabled' : 'Light mode enabled';
+    }
+
+    function toggleTheme() {
+        const current = document.documentElement.getAttribute('data-theme') || localStorage.getItem('theme') || 'light';
+        const next = current === 'dark' ? 'light' : 'dark';
+        applyTheme(next);
+    }
+
+    // initialize from storage or system preference
+    const stored = localStorage.getItem('theme');
+    if (stored) applyTheme(stored);
+    else {
+        const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        applyTheme(prefersDark ? 'dark' : 'light');
+    }
+
+    toggle.addEventListener('click', toggleTheme);
+}
+
+/* ping server (status) */
+function initServerStatus() {
+    const statusText = document.getElementById("status-text");
+    const playerCount = document.getElementById("player-count");
+    const maxPlayers = document.getElementById("max-players");
+    const indicator = document.getElementById("status-indicator");
+    const motdElement = document.getElementById("server-motd");
+    const versionElement = document.getElementById("server-version");
+    const navCount = document.getElementById("nav-player-count");
+    const iconElement = document.getElementById("server-icon");
+
+    fetch(API_URL)
+        .then(response => response.json())
+        .then(data => {
+            if (data.online) {
+                // Server is Online
+                statusText.innerText = "Online";
+                statusText.style.color = "var(--accent-earth)";
+                
+                playerCount.innerText = data.players.online;
+                maxPlayers.innerText = data.players.max;
+                
+                // Update Badge in Navbar
+                if(navCount) navCount.innerText = `${data.players.online} Online`;
+                
+                // Update Indicator
+                indicator.classList.add("online");
+
+                // Small celebration burst on the card (subtle)
+                const statusCard = document.querySelector('.status-card');
+                if (statusCard) {
+                    statusCard.classList.add('online','status-burst');
+                    setTimeout(() => statusCard.classList.remove('status-burst'), 900);
+                }
+                
+                // Update Version
+                if(versionElement) versionElement.innerText = data.version;
+
+                // Update Icon if exists
+                if(data.icon && iconElement) {
+                    iconElement.src = data.icon;
+                }
+
+                // Clean MOTD (Remove color codes)
+                if (data.motd && data.motd.clean) {
+                    motdElement.innerText = data.motd.clean.join(" ");
+                }
+            } else {
+                // Server is Offline
+                setOfflineStatus();
+            }
+        })
+        .catch(err => {
+            console.error("Failed to fetch server status:", err);
+            setOfflineStatus();
+        });
+
+    function setOfflineStatus() {
+        statusText.innerText = "Offline";
+        statusText.style.color = "var(--accent-fire)";
+        indicator.classList.add("offline");
+        if(navCount) navCount.innerText = "Offline";
+        motdElement.innerText = "Server is currently offline.";
+    }
+}
+
+/* copy IP: clipboard magic */
+function initCopyButtons() {
+    const copyButtons = document.querySelectorAll("[data-copy-ip]");
     
-    if (menuToggle && navLinks) {
-        menuToggle.addEventListener("click", function() {
-            navLinks.classList.toggle("active");
-            const isOpen = navLinks.classList.contains("active");
-            menuToggle.textContent = isOpen ? "✕" : "☰";
+    copyButtons.forEach(btn => {
+        btn.addEventListener("click", () => {
+            navigator.clipboard.writeText(SERVER_IP).then(() => {
+                // Button-specific visuals (kept for smaller context)
+                const originalText = btn.innerHTML;
+                const isMini = btn.classList.contains('mini-ip-box');
+                
+                if (isMini) {
+                    const hint = btn.querySelector(".copy-hint");
+                    const originalHint = hint ? hint.innerText : '';
+                    if (hint) {
+                        hint.innerText = "COPIED!";
+                        hint.style.color = "var(--accent-earth)";
+                        setTimeout(() => {
+                            hint.innerText = originalHint;
+                            hint.style.color = "";
+                        }, 2000);
+                    }
+                } else {
+                    btn.classList.add("copied");
+                    if (btn.classList.contains("btn-copy")) {
+                        btn.innerHTML = `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>`;
+                    } else {
+                        const span = btn.querySelector("span");
+                        if (span) span.innerText = "Copied!";
+                    }
+
+                    setTimeout(() => {
+                        btn.classList.remove("copied");
+                        btn.innerHTML = originalText;
+                    }, 2000);
+                }
+            }).catch(err => {
+                // fallback: alert the user (toaster removed)
+                console.error('Copy failed', err);
+                alert('Copy failed. IP: ' + SERVER_IP);
+            });
+        });
+    });
+}
+
+
+/* reveal-on-scroll (pretty) */
+function initScrollAnimations() {
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            }
+        });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.reveal').forEach(el => {
+        observer.observe(el);
+    });
+}
+
+/* wire external links (discord/store/vote) */
+function initLinks() {
+    document.querySelectorAll("[data-discord-link]").forEach(el => el.href = DISCORD_URL);
+    document.querySelectorAll("[data-store-link]").forEach(el => el.href = STORE_URL);
+    document.querySelectorAll("[data-vote-link]").forEach(el => el.href = VOTE_URL);
+}
+
+/* utils & helpers */
+function updateFooterYear() {
+    document.getElementById("footer-year").innerText = new Date().getFullYear();
+}
+
+function scrollToTop() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function initMobileMenu() {
+    const toggle = document.querySelector(".mobile-menu-toggle");
+    const nav = document.querySelector(".nav-links");
+    
+    if(toggle && nav) {
+        toggle.addEventListener("click", () => {
+            nav.classList.toggle("active");
         });
         
-        // Close menu when clicking a link
-        navLinks.querySelectorAll("a").forEach(function(link) {
-            link.addEventListener("click", function() {
-                navLinks.classList.remove("active");
-                menuToggle.textContent = "☰";
+        // Close on link click
+        nav.querySelectorAll("a").forEach(link => {
+            link.addEventListener("click", () => {
+                nav.classList.remove("active");
             });
         });
     }
 }
-
-// ===== SCROLL HIGHLIGHTING =====
-function initScrollHighlight() {
-    const sections = document.querySelectorAll('section');
-    const navLinks = document.querySelectorAll('.nav-links a');
-
-    // Simple scroll spy
-    window.addEventListener('scroll', () => {
-        let current = '';
-        sections.forEach(section => {
-            const sectionTop = section.offsetTop;
-            const sectionHeight = section.clientHeight;
-            // 150px offset for the navbar
-            if (pageYOffset >= (sectionTop - 150)) {
-                current = section.getAttribute('id');
-            }
-        });
-
-        navLinks.forEach(link => {
-            link.classList.remove('active');
-            if (link.getAttribute('href').includes(current)) {
-                link.classList.add('active');
-            }
-        });
-        
-        // Highlight home if at the very top
-        if (window.scrollY < 100) {
-            navLinks.forEach(link => link.classList.remove('active'));
-            if(navLinks[0]) navLinks[0].classList.add('active');
-        }
-    });
-}
-
-// ===== COPY FUNCTIONALITY =====
-function initCopyButtons() {
-    // Copy IP buttons
-    document.querySelectorAll("[data-copy-ip]").forEach(function(btn) {
-        btn.addEventListener("click", function() {
-            copyIP();
-        });
-    });
-    
-    // Navbar Copy IP button (scrolls to IP box)
-    const navCopyBtn = document.querySelector("[data-nav-copy-ip]");
-    if (navCopyBtn) {
-        navCopyBtn.addEventListener("click", function() {
-            const ipBox = document.getElementById("ip-box");
-            if (ipBox) {
-                ipBox.scrollIntoView({ behavior: "smooth", block: "center" });
-                setTimeout(copyIP, 300);
-            } else {
-                copyIP();
-            }
-        });
-    }
-}
-
-function copyIP() {
-    if (MC_HOST === "") {
-        alert("Server IP not configured.");
-        return;
-    }
-    
-    navigator.clipboard.writeText(MC_HOST).then(function() {
-        showCopyFeedback("IP copied: " + MC_HOST);
-    }).catch(function() {
-        // Fallback for older browsers
-        const textArea = document.createElement("textarea");
-        textArea.value = MC_HOST;
-        textArea.style.position = "fixed";
-        textArea.style.opacity = "0";
-        document.body.appendChild(textArea);
-        textArea.select();
-        try {
-            document.execCommand("copy");
-            showCopyFeedback("IP copied: " + MC_HOST);
-        } catch (err) {
-            alert("Failed to copy. IP: " + MC_HOST);
-        }
-        document.body.removeChild(textArea);
-    });
-}
-
-function showCopyFeedback(message) {
-    let feedback = document.querySelector(".copy-feedback");
-    if (!feedback) {
-        feedback = document.createElement("div");
-        feedback.className = "copy-feedback";
-        document.body.appendChild(feedback);
-    }
-    feedback.textContent = message;
-    feedback.classList.add("show");
-    
-    setTimeout(function() {
-        feedback.classList.remove("show");
-    }, 2000);
-}
-
-// ===== DYNAMIC CONTENT =====
-function initDynamicContent() {
-    document.querySelectorAll("[data-ip-text]").forEach(el => el.textContent = MC_HOST);
-    document.querySelectorAll("[data-discord-link]").forEach(el => el.href = DISCORD_URL);
-    document.querySelectorAll("[data-store-link]").forEach(el => el.href = STORE_URL);
-    document.querySelectorAll("[data-vote-link]").forEach(el => el.href = VOTE_URL);
-    document.querySelectorAll("[data-rules-link]").forEach(el => el.href = RULES_URL);
-    
-    document.querySelectorAll("[data-discord-tag]").forEach(el => {
-        el.textContent = DISCORD_URL.replace("https://", "").substring(0, 25) + "...";
-    });
-}
-
-// ===== FOOTER YEAR =====
-function initFooterYear() {
-    const yearEl = document.getElementById("footer-year");
-    if (yearEl) {
-        yearEl.textContent = new Date().getFullYear();
-    }
-}
-
-// ===== SERVER STATUS PING =====
-function pingServer() {
-    const statusText = document.getElementById("status-text");
-    const statusIndicator = document.getElementById("status-indicator");
-    const pingText = document.getElementById("ping-text");
-    
-    if (!statusText || !statusIndicator || !pingText) return;
-    
-    // Set checking state
-    statusText.textContent = "Checking...";
-    statusText.className = "status-value";
-    statusIndicator.className = "status-indicator";
-    
-    const startTime = performance.now();
-    const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 7000);
-    
-    const pingUrl = "https://" + MC_HOST + "/?" + Date.now();
-    
-    fetch(pingUrl, {
-        mode: "no-cors",
-        signal: controller.signal
-    }).then(() => {
-        clearTimeout(timeoutId);
-        const ping = Math.round(performance.now() - startTime);
-        
-        statusText.textContent = "Online";
-        statusText.className = "status-value online";
-        statusIndicator.className = "status-indicator online";
-        pingText.textContent = ping + " ms";
-    }).catch((err) => {
-        clearTimeout(timeoutId);
-        // Even with no-cors, a network error implies offline/unreachable for this context
-        statusText.textContent = "Offline";
-        statusText.className = "status-value offline";
-        statusIndicator.className = "status-indicator offline";
-        pingText.textContent = "—";
-    });
-}
-
-// ===== BACK TO TOP =====
