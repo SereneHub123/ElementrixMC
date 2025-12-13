@@ -1,0 +1,350 @@
+/* =========================================
+   1. VARIABLES & RESET
+   ========================================= */
+:root {
+    --primary: #6366f1;       /* Indigo */
+    --primary-hover: #4f46e5;
+    --bg-dark: #0f172a;       /* Slate 900 */
+    --bg-card: #1e293b;       /* Slate 800 */
+    --text-main: #f8fafc;     /* Slate 50 */
+    --text-muted: #94a3b8;    /* Slate 400 */
+    --border: #334155;        /* Slate 700 */
+    
+    --nav-height: 70px;
+    --radius: 12px;
+    --font-heading: 'Outfit', sans-serif;
+    --font-body: 'Inter', sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: var(--nav-height); /* Prevents anchor links hiding behind nav */
+}
+
+body {
+    background-color: var(--bg-dark);
+    color: var(--text-main);
+    font-family: var(--font-body);
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+a { text-decoration: none; color: inherit; transition: 0.2s; }
+ul, ol { list-style: none; }
+
+/* =========================================
+   2. UTILITIES & LAYOUT
+   ========================================= */
+.section-container, .navbar-container, .footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 2rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.muted { color: var(--text-muted); font-size: 0.9rem; }
+.sr-only { display: none; }
+
+/* Background Blobs (Decoration) */
+.blob {
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    background: var(--primary);
+    filter: blur(150px);
+    opacity: 0.15;
+    z-index: -1;
+    border-radius: 50%;
+}
+.blob-1 { top: -100px; left: -100px; }
+.blob-2 { bottom: 0; right: 0; }
+
+/* =========================================
+   3. NAVIGATION
+   ========================================= */
+.navbar {
+    height: var(--nav-height);
+    position: sticky;
+    top: 0;
+    background: rgba(15, 23, 42, 0.8); /* Semi-transparent */
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+}
+
+.navbar-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--font-heading);
+    font-weight: 800;
+    font-size: 1.25rem;
+    letter-spacing: -0.5px;
+}
+
+.logo-img { height: 32px; width: 32px; object-fit: contain; }
+
+.nav-links {
+    display: flex;
+    gap: 30px;
+}
+
+.nav-links a {
+    color: var(--text-muted);
+    font-weight: 500;
+}
+
+.nav-links a:hover, .nav-links a.active {
+    color: var(--primary);
+}
+
+.btn {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.btn-primary {
+    background: var(--primary);
+    color: white;
+}
+.btn-primary:hover { background: var(--primary-hover); }
+
+.btn-secondary {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--text-main);
+}
+.btn-secondary:hover { border-color: var(--text-muted); }
+
+.mobile-menu-toggle { display: none; background: none; border: none; cursor: pointer; }
+
+/* =========================================
+   4. PAGE HEADER
+   ========================================= */
+.section { padding: 4rem 0; }
+
+.page-header {
+    text-align: center;
+    margin-bottom: 3rem;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.page-title {
+    font-family: var(--font-heading);
+    font-size: 2.5rem;
+    font-weight: 800;
+    margin-bottom: 1rem;
+    line-height: 1.2;
+}
+
+.page-subtitle {
+    color: var(--text-muted);
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+}
+
+/* =========================================
+   5. RULES LAYOUT (Grid)
+   ========================================= */
+.rules-layout {
+    display: grid;
+    grid-template-columns: 280px 1fr; /* Sidebar fixed width, Content fills rest */
+    gap: 2rem;
+    align-items: start;
+}
+
+/* Sidebar (TOC) */
+.rules-toc {
+    position: sticky;
+    top: calc(var(--nav-height) + 20px);
+    padding: 1.5rem;
+    max-height: calc(100vh - 100px);
+    overflow-y: auto;
+}
+
+.toc-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.toc-top h3 {
+    font-family: var(--font-heading);
+    font-size: 1.1rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.toc-toggle { display: none; } /* Hidden on desktop */
+
+.toc-list li { margin-bottom: 0.5rem; }
+
+.toc-list a {
+    display: block;
+    padding: 0.5rem;
+    border-radius: 6px;
+    color: var(--text-muted);
+    font-size: 0.95rem;
+}
+
+.toc-list a:hover {
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--text-main);
+}
+
+/* Active link (handled by JS in your HTML) */
+.toc-list a[aria-current="true"] {
+    background: rgba(99, 102, 241, 0.1);
+    color: var(--primary);
+    font-weight: 600;
+}
+
+/* Content Area */
+.rules-content .card {
+    padding: 3rem;
+}
+
+.prose section {
+    margin-bottom: 3rem;
+    scroll-margin-top: 100px; /* Ensures header isn't hidden by navbar on jump */
+}
+
+.prose h2 {
+    font-family: var(--font-heading);
+    font-size: 1.75rem;
+    margin-bottom: 1.5rem;
+    color: var(--text-main);
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 0.5rem;
+}
+
+.prose ol {
+    list-style: decimal;
+    margin-left: 1.5rem;
+    color: var(--text-muted);
+}
+
+.prose li {
+    margin-bottom: 1rem;
+    padding-left: 0.5rem;
+}
+
+.prose strong {
+    color: var(--text-main);
+    font-weight: 600;
+}
+
+.section-actions {
+    margin-top: 2rem;
+    display: flex;
+    justify-content: space-between;
+}
+
+/* =========================================
+   6. FOOTER
+   ========================================= */
+.footer {
+    border-top: 1px solid var(--border);
+    padding: 3rem 0;
+    margin-top: 4rem;
+    background: rgba(15, 23, 42, 0.5);
+}
+
+.footer-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.footer-logo {
+    font-family: var(--font-heading);
+    font-weight: 800;
+    font-size: 1.5rem;
+    color: var(--primary);
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.footer-text { color: var(--text-muted); font-size: 0.9rem; }
+
+.footer-right { display: flex; gap: 20px; }
+.footer-link { color: var(--text-muted); font-size: 0.9rem; }
+.footer-link:hover { color: var(--primary); text-decoration: underline; }
+
+/* =========================================
+   7. RESPONSIVE DESIGN
+   ========================================= */
+@media (max-width: 900px) {
+    .rules-layout {
+        grid-template-columns: 1fr; /* Stack into 1 column */
+    }
+
+    .rules-toc {
+        position: relative;
+        top: 0;
+        margin-bottom: 2rem;
+    }
+
+    .toc-toggle {
+        display: inline-block;
+        background: transparent;
+        border: 1px solid var(--border);
+        color: var(--text-main);
+        padding: 4px 8px;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 0.8rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .nav-links, .nav-right { display: none; } /* Simplified mobile view */
+    .mobile-menu-toggle { 
+        display: flex; 
+        flex-direction: column; 
+        gap: 5px; 
+    }
+    
+    .mobile-menu-toggle span {
+        width: 25px; 
+        height: 2px; 
+        background-color: var(--text-main); 
+    }
+
+    .page-title { font-size: 2rem; }
+    
+    .footer-container {
+        flex-direction: column;
+        text-align: center;
+        gap: 2rem;
+    }
+}
