@@ -1,5 +1,5 @@
 /* =========================================
-   1. VARIABLES & RESET
+   1. VARIABLEODEFOUES & RESET
    ========================================= */
 :root {
     --primary: #6366f1;       /* Indigo */
@@ -73,7 +73,7 @@ ul, ol { list-style: none; }
 .blob-2 { bottom: 0; right: 0; }
 
 /* =========================================
-   3. NAVIGATION
+   3. NAVIGATION...SDD
    ========================================= */
 .navbar {
     height: var(--nav-height);
@@ -171,11 +171,11 @@ ul, ol { list-style: none; }
 }
 
 /* =========================================
-   5. RULES LAYOUT (Grid)
+   5. RULES LAY)
    ========================================= */
 .rules-layout {
     display: grid;
-    grid-template-columns: 280px 1fr; /* Sidebar fixed width, Content fills rest */
+    grid-template-columns: 280px 1fr;
     gap: 2rem;
     align-items: start;
 }
@@ -235,7 +235,7 @@ ul, ol { list-style: none; }
 
 .prose section {
     margin-bottom: 3rem;
-    scroll-margin-top: 100px; /* Ensures header isn't hidden by navbar on jump */
+    scroll-margin-top: 100px; /* CHANGED THIS MAN */
 }
 
 .prose h2 {
@@ -270,7 +270,7 @@ ul, ol { list-style: none; }
 }
 
 /* =========================================
-   6. FOOTER
+   6. FOOTER   (WWOEKRIFK ON PROGGEIOOSSS
    ========================================= */
 .footer {
     border-top: 1px solid var(--border);
@@ -327,7 +327,7 @@ ul, ol { list-style: none; }
 }
 
 @media (max-width: 768px) {
-    .nav-links, .nav-right { display: none; } /* Simplified mobile view */
+    .nav-links, .nav-right { display: none; } 
     .mobile-menu-toggle { 
         display: flex; 
         flex-direction: column; 
