@@ -3,331 +3,336 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Elementrix SMP - Cracked Elemental Minecraft Server</title>
-    <meta name="description" content="Elementrix is a cracked Elemental SMP. Choose an element, grind survival, and dominate in PvP. No pay-to-win.">
+    <title>Elementrix SMP | The Ultimate Elemental Survival</title>
+    <meta name="description" content="Join Elementrix SMP! Master Fire, Water, Earth, or Air. A cracked Minecraft Survival server with PvP, bending, and no pay-to-win.">
+    
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Elementrix SMP - Master the Elements">
+    <meta property="og:description" content="Cracked Survival with Avatar Bending. Join now at play.elementrix.it">
+    <meta name="theme-color" content="#6366f1">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@700;800&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+
+    <!-- NAVBAR: shiny links and tiny server badge -->
     <nav class="navbar">
         <div class="navbar-container">
             <a href="#home" class="logo">
+                <img src="media/logo.webp" alt="Elementrix logo" class="logo-img" />
                 <span class="logo-text">ELEMENTRIX</span>
             </a>
             
-            <button class="mobile-menu-toggle" aria-label="Toggle menu">☰</button>
+            <button class="mobile-menu-toggle" aria-label="Toggle menu">
+                <span></span><span></span><span></span>
+            </button>
             
             <ul class="nav-links">
                 <li><a href="#home" class="active">Home</a></li>
                 <li><a href="#features">Features</a></li>
-                <li><a href="#join">How to Join</a></li>
+                <li><a href="#elements">Elements</a></li>
+                <li><a href="#how-to-join">Join</a></li>
                 <li><a href="#links">Links</a></li>
             </ul>
             
             <div class="nav-right">
-                <span class="server-pill">Cracked • Elemental SMP</span>
-                <button class="btn btn-primary btn-small" data-nav-copy-ip>Copy IP</button>
+                <div class="server-pill">
+                    <span class="pulse-dot"></span>
+                    <span id="nav-player-count">Loading...</span>
+                </div>
+                <button class="btn btn-primary btn-small" data-nav-copy-ip>
+                    <span>Copy IP</span>
+                </button>
+                <button id="theme-toggle" class="btn btn-secondary btn-small" aria-pressed="false" aria-label="Toggle dark mode" title="Toggle dark mode">
+                    <svg id="theme-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2"></path><path d="M12 20v2"></path><path d="M4.93 4.93l1.41 1.41"></path><path d="M17.66 17.66l1.41 1.41"></path><path d="M2 12h2"></path><path d="M20 12h2"></path><path d="M4.93 19.07l1.41-1.41"></path><path d="M17.66 6.34l1.41-1.41"></path></svg>
+                </button>
             </div>
         </div>
     </nav>
 
+    <!-- HERO: big headline area, do not disturb the vibes -->
     <section class="hero" id="home">
         <div class="hero-container">
             <div class="hero-content">
-                <div class="hero-badge">
-                    <span class="hero-badge-new">NEW</span>
-                    Element-bending SMP • PvP • Events
+                <div class="hero-badge reveal">
+                    <span class="badge-new">NEW</span>
+                    Cracked • Elemental PvP • Survival
                 </div>
                 
-                <h1 class="hero-title">
-                    <span>Bend the elements.</span>
-                    <span class="highlight">Rule the SMP.</span>
+                <h1 class="hero-title reveal">
+                    Bend the elements.<br>
+                    <span class="highlight">Rule the Server.</span>
                 </h1>
                 
-                <p class="hero-subtitle">
-                    Elementrix is a cracked Elemental SMP where you choose an element, grind survival, and dominate in PvP. No pay-to-win, just skill and strategy.
+                <p class="hero-subtitle reveal">
+                    Elementrix is the premier Cracked Elemental SMP. Choose your path, grind for gear, and dominate in bending arenas. No pay-to-win, just pure skill.
                 </p>
                 
-                <div class="ip-box" id="ip-box">
-                    <div class="ip-box-label">Server Address</div>
-                    <div class="ip-box-content">
-                        <span class="ip-text" data-ip-text>play.elementrix.it</span>
-                        <button class="btn btn-secondary btn-small" data-copy-ip>Copy</button>
+                <div class="ip-wrapper reveal">
+                    <div class="ip-box" id="ip-box">
+                        <div class="ip-label">SERVER ADDRESS</div>
+                        <div class="ip-content">
+                            <span class="ip-text" data-ip-text>play.elementrix.it</span>
+                            <button class="btn-copy" data-copy-ip aria-label="Copy IP">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                            </button>
+                        </div>
                     </div>
-                    
-                    <div class="ip-tags">
-                        <span class="ip-tag">Version: 1.20.X – Paper / Spigot</span>
-                        <span class="ip-tag cracked">Online-mode: Off (cracked allowed)</span>
+                    <div class="hero-buttons">
+                        <a href="#" class="btn btn-primary" data-discord-link>
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037 13.06 13.06 0 0 0-1.012 2.095c-1.353-.061-2.705-.061-4.057 0a12.3 12.3 0 0 0-1.028-2.095.075.075 0 0 0-.078-.037 19.918 19.918 0 0 0-4.885 1.515.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03z"/></svg>
+                            Join Discord
+                        </a>
+                        <a href="#how-to-join" class="btn btn-secondary">How to Join</a>
                     </div>
-                    
-                    <div class="ip-buttons">
-                        <a href="#" class="btn btn-primary" data-discord-link>Join Discord</a>
-                        <a href="#join" class="btn btn-secondary">How to Join</a>
-                    </div>
-                    
-                    <p class="ip-tip">
-                        Tip: Use a legit account if you have one. Cracked launchers also work as long as they support custom servers.
-                    </p>
                 </div>
             </div>
             
-            <div class="status-card">
-                <div class="status-title">
-                    <span class="status-indicator" id="status-indicator"></span>
-                    Server Status
+            <div class="status-card reveal" id="status-card">
+                <div class="status-header">
+                    <div class="status-icon-wrapper">
+                        <img id="server-icon" src="https://api.mcsrvstat.us/icon/play.elementrix.it" alt="Server Icon" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0iIzYzNjZmMSIvPjx0ZXh0IHg9IjUwJSIgeT0iNTUlIiBmb250LXNpemU9IjMwIiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZmlsbD0id2hpdGUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGRvbWluYW50LWJhc2VsaW5lPSJtaWRkbGUiPkU8L3RleHQ+PC9zdmc+'">
+                    </div>
+                    <div class="status-info">
+                        <div class="status-title">Elementrix SMP</div>
+                        <div class="status-ping" id="status-text">Pinging...</div>
+                    </div>
+                    <div class="status-indicator" id="status-indicator"></div>
                 </div>
                 
-                <div class="status-grid">
-                    <div class="status-row">
-                        <span class="status-label">Status</span>
-                        <span class="status-value" id="status-text">Checking...</span>
+                <div class="status-stats">
+                    <div class="stat-box">
+                        <span class="stat-label">Players</span>
+                        <span class="stat-value"><span id="player-count">0</span> / <span id="max-players">0</span></span>
                     </div>
-                    <div class="status-row">
-                        <span class="status-label">Last Ping</span>
-                        <span class="status-value" id="ping-text">—</span>
-                    </div>
-                    <div class="status-row">
-                        <span class="status-label">Region</span>
-                        <span class="status-value">India / Asia</span>
-                    </div>
-                    <div class="status-row">
-                        <span class="status-label">Mode</span>
-                        <span class="status-value">Survival SMP</span>
+                    <div class="stat-box">
+                        <span class="stat-label">Version</span>
+                        <span class="stat-value" id="server-version">1.16 - 1.20+</span>
                     </div>
                 </div>
                 
-                <p class="status-note">
-                    Real-time connectivity check.
-                </p>
+                <div class="status-motd">
+                    <span id="server-motd">Connecting to server...</span>
+                </div>
             </div>
         </div>
     </section>
 
+    <!-- FEATURES: the good stuff (to brag about) -->
     <section class="section" id="features">
         <div class="section-container">
-            <div class="section-header">
-                <h2 class="section-title">What is Elementrix?</h2>
-                <p class="section-subtitle">
-                    A long-term survival SMP with aggressive PvP, clean bending mechanics, and no constant resets. Grind hard, play smart.
+            <header class="page-header reveal">
+                <h2 class="page-title">The Elementrix Experience</h2>
+                <p class="page-subtitle">
+                    A long-term survival SMP with aggressive PvP, refined bending mechanics, and a community that plays to win.
                 </p>
-            </div>
+            </header>
 
             <div class="cards-grid">
-                <div class="card">
-                    <div class="card-title">
-                        <div class="card-icon">🌍</div>
-                        Our World
+                <div class="card reveal">
+                    <div class="card-icon icon-world">🌍</div>
+                    <div class="card-content">
+                        <h3>Open World SMP</h3>
+                        <p>
+                            We don't do monthly resets. Build massive bases, hoard resources, and establish your clan's dominance on a map that lasts.
+                        </p>
+                        <ul class="feature-list">
+                            <li>⚔️ Intense Clan Wars</li>
+                            <li>🏰 Land Claiming & Grief Prevention</li>
+                            <li>💰 Player Economy & Shops</li>
+                        </ul>
                     </div>
-                    <p class="card-text">
-                        Elementrix is built for players who want aggressive PvP, clean bending combat, and a server that doesn't reset every month.
-                    </p>
-                    <ul>
-                        <li>Grind SMP, build bases, stack gear.</li>
-                        <li>Master bending combos with ProjectKorra.</li>
-                        <li>Join events, wars, tournaments.</li>
-                        <li>Play premium or cracked — we don't discriminate.</li>
-                    </ul>
                 </div>
                 
-                <div class="card">
-                    <div class="card-title">
-                        <div class="card-icon">⚙️</div>
-                        Core Features
+                <div class="card reveal">
+                    <div class="card-icon icon-gear">⚙️</div>
+                    <div class="card-content">
+                        <h3>Balanced Gameplay</h3>
+                        <p>
+                            ProjectKorra bending is tweaked for fair PvP. No "one-shot" moves. Skill determines the winner, not who paid the most.
+                        </p>
+                        <ul class="feature-list">
+                            <li>🔥 Custom Bending Configs</li>
+                            <li>🏆 Weekly Tournaments</li>
+                            <li>🛡️ Advanced Anti-Cheat</li>
+                        </ul>
                     </div>
-                    <ul>
-                        <li>ProjectKorra bending with custom tweaks.</li>
-                        <li>Element-based kits, duels, arenas.</li>
-                        <li>Survival SMP with optional economy & claims.</li>
-                        <li>Weekly events, clan wars, grinding seasons.</li>
-                        <li>Active moderation & anti-cheat.</li>
-                    </ul>
-                    <p class="card-highlight">
-                        You log in, choose an element, and outplay everyone.
-                    </p>
-                </div>
-            </div>
-
-            <div class="section-header" style="margin-top: 4rem;">
-                <h2 class="section-title">Choose Your Element</h2>
-                <p class="section-subtitle">Each element has unique abilities and playstyles. Master one or experiment with all.</p>
-            </div>
-            
-            <div class="links-grid">
-                <div class="card" style="text-align: center; padding: 1.5rem;">
-                    <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">🔥</div>
-                    <div class="card-title" style="justify-content: center; margin-bottom: 0.5rem;">Fire</div>
-                    <p class="card-text" style="margin: 0;">Aggressive offense with flame attacks and combustion.</p>
-                </div>
-                
-                <div class="card" style="text-align: center; padding: 1.5rem;">
-                    <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">💧</div>
-                    <div class="card-title" style="justify-content: center; margin-bottom: 0.5rem;">Water</div>
-                    <p class="card-text" style="margin: 0;">Versatile control with healing and ice abilities.</p>
-                </div>
-                
-                <div class="card" style="text-align: center; padding: 1.5rem;">
-                    <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">🌍</div>
-                    <div class="card-title" style="justify-content: center; margin-bottom: 0.5rem;">Earth</div>
-                    <p class="card-text" style="margin: 0;">Defensive power with terrain manipulation.</p>
-                </div>
-                
-                <div class="card" style="text-align: center; padding: 1.5rem;">
-                    <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">💨</div>
-                    <div class="card-title" style="justify-content: center; margin-bottom: 0.5rem;">Air</div>
-                    <p class="card-text" style="margin: 0;">Speed and evasion with wind techniques.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="section" id="join" style="background: rgba(18, 18, 26, 0.5);">
+    <!-- ELEMENTS: Fire, Water, Earth, Air (ELEMENTRIX BETTERRR -->
+    <section class="section alt-bg" id="elements">
         <div class="section-container">
-            <div class="section-header">
-                <h2 class="section-title">How to Join</h2>
-                <p class="section-subtitle">
-                    Get on the server in minutes. Works with premium and cracked launchers.
-                </p>
-            </div>
-
-            <div class="cards-grid">
-                <div class="card">
-                    <div class="card-title">
-                        <div class="card-icon">📋</div>
-                        Step-by-Step
-                    </div>
-                    <ul class="steps-list">
-                        <li>Open your Minecraft launcher (official or cracked).</li>
-                        <li>Select or install version <strong>1.20.X</strong> (recommended).</li>
-                        <li>Go to <strong>Multiplayer → Add Server</strong>.</li>
-                        <li>Set server address to: <strong data-ip-text>play.elementrix.it</strong></li>
-                        <li>Save and click <strong>Join Server</strong>.</li>
-                        <li>Pick your element and start bending!</li>
-                    </ul>
-                </div>
-                
-                <div class="card">
-                    <div class="card-title">
-                        <div class="card-icon">🎮</div>
-                        Premium vs Cracked
-                    </div>
-                    <ul>
-                        <li><strong>Premium accounts:</strong> Join normally through the official launcher.</li>
-                        <li><strong>Cracked accounts:</strong> Use any offline-capable launcher (TLauncher, Salwyrr, etc.).</li>
-                        <li>Use the <strong>SAME username</strong> every time so your progress saves.</li>
-                        <li>Impersonation or account sharing = <strong>permanent ban</strong>.</li>
-                    </ul>
-                    <div class="warning-box">
-                        Cracked players are welcome, but cheaters and alt abusers get banned immediately. Play fair.
-                    </div>
-                </div>
+            <div class="section-header reveal">
+                <h2 class="section-title">Master Your Element</h2>
+                <p class="section-subtitle">Four paths. Infinite playstyles. Which one calls to you?</p>
             </div>
             
-            <div class="cards-grid" style="margin-top: 2rem;">
-                <div class="card">
-                    <div class="card-title">
-                        <div class="card-icon">⚡</div>
-                        First Steps
-                    </div>
-                    <ul>
-                        <li>Read the rules in /rules to avoid bans.</li>
-                        <li>Choose your element with /bending choose.</li>
-                        <li>Practice in the training area before PvP.</li>
-                        <li>Join a clan or make your own.</li>
-                    </ul>
+            <div class="elements-grid">
+                <div class="element-card fire reveal">
+                    <div class="element-icon">🔥</div>
+                    <h3>Fire</h3>
+                    <p>Aggressive offense. Overwhelm opponents with combustion, lightning, and walls of flame.</p>
+                    <span class="element-badge">High Damage</span>
                 </div>
                 
-                <div class="card">
-                    <div class="card-title">
-                        <div class="card-icon">🛡️</div>
-                        Stay Safe
-                    </div>
-                    <ul>
-                        <li>Claim your base to protect it.</li>
-                        <li>Don't share your account or password.</li>
-                        <li>Report bugs and hackers on Discord.</li>
-                        <li>Check announcements for events.</li>
-                    </ul>
+                <div class="element-card water reveal">
+                    <div class="element-icon">💧</div>
+                    <h3>Water</h3>
+                    <p>Fluid control. Switch between healing allies and freezing enemies in ice prisons.</p>
+                    <span class="element-badge">Versatile</span>
+                </div>
+                
+                <div class="element-card earth reveal">
+                    <div class="element-icon">⛰️</div>
+                    <h3>Earth</h3>
+                    <p>Unbreakable defense. Manipulate the terrain, launch boulders, and armor yourself.</p>
+                    <span class="element-badge">Tank / Defense</span>
+                </div>
+                
+                <div class="element-card air reveal">
+                    <div class="element-icon">💨</div>
+                    <h3>Air</h3>
+                    <p>Untouchable speed. Dodge attacks, push enemies back, and fly across the battlefield.</p>
+                    <span class="element-badge">Mobility</span>
                 </div>
             </div>
         </div>
     </section>
 
+    <!-- JOIN: how to jump in and cause orderly mayhem -->
+    <section class="section" id="how-to-join">
+        <div class="section-container">
+            <header class="page-header reveal">
+                <h2 class="page-title">Start Your Journey</h2>
+                <p class="section-subtitle">
+                    We support both Premium and Cracked clients. Everyone is welcome.
+                </p>
+            </header>
+
+            <div class="join-layout">
+                <div class="join-steps reveal">
+                    <div class="step-item">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <h4>Launch Minecraft</h4>
+                            <p>Open TLauncher, Salwyrr, or Official. Select version <strong>1.16.5 - 1.20+</strong>.</p>
+                        </div>
+                    </div>
+                    <div class="step-item">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <h4>Add Server</h4>
+                            <p>Go to Multiplayer > Add Server. Enter the IP below.</p>
+                            <div class="mini-ip-box" data-copy-ip>
+                                <span data-ip-text>play.elementrix.it</span>
+                                <span class="copy-hint">Click to copy</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step-item">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <h4>Login & Play</h4>
+                            <p>If you are cracked, use <code>/register &lt;password&gt; &lt;password&gt;</code>.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card warning-card reveal">
+                    <div class="card-title">
+                        <div class="card-icon icon-alert">⚠️</div>
+                        Important Rules
+                    </div>
+                    <ul class="feature-list">
+                        <li><span>🚫</span> <strong>No Cheating:</strong> X-ray and hacks = Ban.</li>
+                        <li><span>👤</span> <strong>Security:</strong> Remember your login password!</li>
+                        <li><span>🤝</span> <strong>Respect:</strong> Toxic behavior is not tolerated.</li>
+                    </ul>
+                    <a href="#" class="btn btn-secondary full-width" data-rules-link>Read Full Rules</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- the links section :)) -->
     <section class="section" id="links">
         <div class="section-container">
-            <div class="section-header">
-                <h2 class="section-title">Quick Links</h2>
-                <p class="section-subtitle">
-                    Everything you need to stay connected with Elementrix.
-                </p>
-            </div>
-
             <div class="links-grid">
-                <a href="#" class="link-card" data-discord-link>
-                    <div class="link-card-icon">💬</div>
-                    <div class="link-card-title">Discord</div>
-                    <p class="link-card-desc">
-                        Announcements, bug reports, staff applications, and community chat. This is where everything happens.
-                    </p>
-                    <span class="link-card-tag" data-discord-tag>discord.com/...</span>
+                <a href="#" class="link-card discord reveal" data-discord-link>
+                    <div class="link-bg"></div>
+                    <div class="link-content">
+                        <div class="link-icon">💬</div>
+                        <div class="link-info">
+                            <h3>Discord</h3>
+                            <p>Join the community, get support, and see updates.</p>
+                        </div>
+                    </div>
                 </a>
                 
-                <a href="#" class="link-card" data-store-link>
-                    <div class="link-card-icon">🛒</div>
-                    <div class="link-card-title">Store</div>
-                    <p class="link-card-desc">
-                        Ranks, cosmetics, and extras that don't affect gameplay. Support the server while looking cool.
-                    </p>
-                    <span class="link-card-tag">Optional • Cosmetic-focused</span>
+                <a href="#" class="link-card store reveal" data-store-link>
+                    <div class="link-bg"></div>
+                    <div class="link-content">
+                        <div class="link-icon">🛒</div>
+                        <div class="link-info">
+                            <h3>Store</h3>
+                            <p>Get ranks, keys, and cosmetics to support us.</p>
+                        </div>
+                    </div>
                 </a>
                 
-                <a href="#" class="link-card" data-vote-link>
-                    <div class="link-card-icon">🗳️</div>
-                    <div class="link-card-title">Vote</div>
-                    <p class="link-card-desc">
-                        Vote daily to boost the server on listing sites and earn in-game rewards.
-                    </p>
-                    <span class="link-card-tag">+ Keys & Crates</span>
-                </a>
-                
-                <a href="#" class="link-card" data-rules-link>
-                    <div class="link-card-icon">📜</div>
-                    <div class="link-card-title">Rules & FAQs</div>
-                    <p class="link-card-desc">
-                        Read the rules before you play. "I didn't know" won't save you from a ban.
-                    </p>
-                    <span class="link-card-tag">No excuses later.</span>
+                <a href="#" class="link-card vote reveal" data-vote-link>
+                    <div class="link-bg"></div>
+                    <div class="link-content">
+                        <div class="link-icon">🗳️</div>
+                        <div class="link-info">
+                            <h3>Vote</h3>
+                            <p>Vote daily for free crate keys and money.</p>
+                        </div>
+                    </div>
                 </a>
             </div>
+        </div>
+    </section>
 
-            <div class="cards-grid" style="margin-top: 3rem;">
-                <div class="card" style="text-align: center;">
-                    <div class="card-title" style="justify-content: center;">
-                        <div class="card-icon">📢</div>
-                        Announcements
-                    </div>
-                    <p class="card-text">
-                        Major updates, events, and server news are posted on Discord. Make sure notifications are on.
-                    </p>
-                    <a href="#" class="btn btn-primary btn-small" data-discord-link>Join Discord</a>
+    <!-- da tutorial-->
+    <section class="section" id="tutorial">
+        <div class="section-container">
+            <div class="tutorial-callout reveal">
+                <div class="tutorial-content">
+                    <h3>Want a tutorial?</h3>
+                    <p class="tutorial-sub">New to Elementrix? Follow our short tutorial to get up and running quickly.</p>
                 </div>
-                
-                <div class="card" style="text-align: center;">
-                    <div class="card-title" style="justify-content: center;">
-                        <div class="card-icon">🎉</div>
-                        Events
-                    </div>
-                    <p class="card-text">
-                        Weekly tournaments, clan wars, and special events with prizes. Check the events channel.
-                    </p>
-                    <a href="#" class="btn btn-secondary btn-small" data-discord-link>See Events</a>
+                <div class="tutorial-actions">
+                    <a href="#" class="btn btn-primary" data-tutorial-link>View Tutorial</a>
+                    <a href="#how-to-join" class="btn btn-secondary">How to Join</a>
                 </div>
             </div>
         </div>
     </section>
 
+    <!-- FOOTER: legally necessary, slightly dramatic -->
     <footer class="footer">
         <div class="footer-container">
-            <p class="footer-text">© <span id="footer-year"></span> Elementrix SMP. Not affiliated with Mojang.</p>
-            <a href="#" class="footer-link" onclick="scrollToTop(); return false;">Back to top ↑</a>
+            <div class="footer-left">
+                <span class="footer-logo">ELEMENTRIX</span>
+                <p class="footer-text">© <span id="footer-year"></span> Elementrix. Not affiliated with Mojang Studios.</p>
+            </div>
+            <div id="theme-status" class="sr-only" aria-live="polite" aria-atomic="true"></div>
+            <div class="footer-right">
+                <a href="#" class="footer-link">Server Rules</a>
+                <a href="#" class="footer-link">Privacy</a>
+                <a href="#" class="footer-link" onclick="scrollToTop(); return false;">Back to top ↑</a>
+            </div>
         </div>
     </footer>
 
