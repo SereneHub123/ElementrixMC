@@ -388,24 +388,76 @@ ul { list-style: none; }
 
 .link-card:focus-visible { outline: none; transform: translateY(-6px); box-shadow: 0 18px 40px rgba(16,24,40,0.08); }
 
-/* Rules: responsive TOC & layout */
+/* Rules: refined layout & typography */
 .rules-layout {
     display: grid;
     grid-template-columns: 1fr;
     gap: 2rem;
     align-items: start;
 }
-.rules-toc { display: none; }
-.toc-toggle { display: inline-block; cursor: pointer; }
 
-/* Prose / spacing utilities for readable docs (rules overrides) */
-.prose { line-height: 1.72; }
+/* TOC card */
+.rules-toc {
+    display: none;
+}
+.toc-toggle { display: inline-block; cursor: pointer; background: none; border: 0; font-weight: 700; color: var(--text-muted); }
+
+/* Header for rules page */
+#rules-main .page-header {
+    text-align: left;
+    max-width: 920px;
+    margin: 0 auto 2rem;
+    padding: 1.25rem 1.5rem;
+    border-radius: 12px;
+    background: var(--bg-glass-card);
+    border: 1px solid var(--border);
+}
+#rules-main .page-title { font-size: 2rem; margin-bottom: 0.25rem; }
+#rules-main .page-subtitle { color: var(--text-muted); font-size: 0.98rem; margin-bottom: 0.25rem; }
+
+/* Prose spacing & improved list numbering */
+.prose { line-height: 1.78; font-size: 1rem; color: var(--text-main); }
 .prose h2 { margin-top: var(--space-lg); margin-bottom: var(--space-md); font-size: 1.45rem; }
 .prose h3 { margin-top: var(--space-md); margin-bottom: var(--space-sm); font-size: 1.05rem; }
-.prose p, .prose li { color: var(--text-muted); margin-bottom: var(--space-md); }
-.prose ol, .prose ul { margin: 0 0 var(--space-md) 1.25rem; }
-.prose ol > li { margin: 0.45rem 0; }
+.prose p { color: var(--text-muted); margin-bottom: var(--space-md); }
+.prose ol, .prose ul { margin: 0 0 var(--space-md) 0; padding-left: 0; }
+.prose ol { counter-reset: rule-item; }
+.prose ol > li {
+    counter-increment: rule-item;
+    position: relative;
+    padding-left: 2.2rem;
+    margin-bottom: 0.9rem;
+}
+.prose ol > li::before {
+    content: counter(rule-item) ".";
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: var(--text-muted);
+    font-weight: 700;
+    width: 1.6rem;
+    text-align: left;
+}
+.prose li strong { color: var(--text-main); }
 .prose .muted { margin-top: var(--space-md); color: var(--text-muted); }
+
+/* Exception / note callouts */
+.rule-exception {
+    border-left: 4px solid var(--accent-fire);
+    background: rgba(239,68,68,0.06);
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    margin: 0.6rem 0 1rem 0;
+    color: var(--text-main);
+}
+.note-callout {
+    border-left: 4px solid var(--primary);
+    background: rgba(99,102,241,0.06);
+    padding: 0.6rem 1rem;
+    border-radius: 8px;
+    margin: 0.6rem 0 1rem 0;
+    color: var(--text-main);
+}
 
 /* Desktop: two-column layout with sticky TOC */
 @media (min-width: 900px) {
@@ -418,40 +470,49 @@ ul { list-style: none; }
         top: 6.5rem; /* below fixed navbar */
         height: calc(100vh - 8rem);
         overflow: auto;
-        padding: var(--space-md);
+        padding: calc(var(--space-md) - 2px);
+        border-radius: 12px;
+        background: linear-gradient(180deg, rgba(255,255,255,0.65), rgba(255,255,255,0.55));
+        border: 1px solid var(--border);
     }
 
-    .rules-toc.card { box-shadow: none; }
-    .rules-toc.card:hover { transform: none; box-shadow: none; }
-
-    .toc-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
-    .toc-top h3 { margin: 0; font-size: 1.05rem; }
+    .toc-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem; }
+    .toc-top h3 { margin: 0; font-size: 0.95rem; color: var(--text-main); text-transform: uppercase; letter-spacing: 0.06em; }
 
     .toc-list { padding: 0; margin: 0; }
     .toc-list li { margin-bottom: 0.4rem; }
     .toc-list a {
         display: block;
-        padding: 0.55rem 0.75rem;
+        padding: 0.5rem 0.75rem 0.5rem 1.25rem;
         border-radius: 8px;
         color: var(--text-muted);
         font-weight: 600;
         font-size: 0.95rem;
-        border-left: 3px solid transparent;
-        transition: background-color 160ms ease, color 160ms ease, border-left-color 160ms ease;
+        position: relative;
+        transition: background-color 160ms ease, color 160ms ease;
     }
 
-    .toc-list a:hover { background: rgba(99,102,241,0.04); color: var(--primary); border-left-color: rgba(99,102,241,0.12); }
-    .toc-list a[aria-current="true"] { background: rgba(99,102,241,0.08); color: var(--primary); border-left-color: var(--primary); }
-    .toc-list a:focus-visible { outline: none; box-shadow: 0 0 0 4px rgba(99,102,241,0.12); border-left-color: rgba(99,102,241,0.16); }
+    .toc-list a::before {
+        content: '';
+        width: 8px; height: 8px; border-radius: 50%;
+        position: absolute; left: 0.5rem; top: 50%; transform: translateY(-50%);
+        background: transparent; transition: transform 160ms ease, background-color 160ms ease, box-shadow 160ms ease;
+    }
+
+    .toc-list a:hover { background: rgba(99,102,241,0.04); color: var(--primary); }
+    .toc-list a[aria-current="true"] { background: rgba(99,102,241,0.08); color: var(--primary); }
+    .toc-list a[aria-current="true"]::before { background: var(--primary); transform: translateY(-50%) scale(1.08); box-shadow: 0 8px 24px rgba(99,102,241,0.08); }
+    .toc-list a:focus-visible { outline: none; box-shadow: 0 0 0 4px rgba(99,102,241,0.12); }
 
     .rules-content .card.prose { padding: 2rem; }
     .rules-content { min-width: 0; }
+    .rules-content .prose { max-width: 820px; margin: 0; }
 
-    /* Improve readability by constraining prose width */
-    .rules-content .prose { max-width: 780px; margin: 0; }
-
-    /* Helper to offset headings under fixed navbar when linking */
+    /* Offset headings under fixed navbar when linking */
     .rules-content h2, .rules-content h3 { scroll-margin-top: 5.5rem; }
+
+    .rules-content h2 { border-left: 3px solid transparent; padding-left: 0.75rem; }
+    .rules-content h2 + p { margin-top: 0.5rem; }
 
     .section-actions { display: flex; gap: 0.75rem; justify-content: flex-end; margin-top: 1.5rem; }
 }
@@ -460,6 +521,9 @@ ul { list-style: none; }
     .rules-layout { grid-template-columns: 1fr; }
     .rules-toc { display: none; }
     .toc-toggle { display: inline-block; }
+
+    #rules-main .page-header { text-align: center; }
+    #rules-main .page-title { font-size: 1.8rem; }
 
     .section-actions { display: flex; gap: 0.75rem; justify-content: center; margin-top: 1.25rem; }
 }
