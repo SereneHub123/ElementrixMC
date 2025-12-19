@@ -17,7 +17,6 @@
     <div class="blob blob-1"></div>
     <div class="blob blob-2"></div>
 
-    <!-- NAVBAR: keeps the site consistent -->
     <nav class="navbar">
         <div class="navbar-container">
             <a href="index.html" class="logo">
@@ -202,29 +201,24 @@
     </footer>
 
     <script>
-        // Small script to set the copyright year on this page.
         document.getElementById('footer-year-rules').textContent = new Date().getFullYear();
 
-        // Utility: smooth scroll to top (used by footer link)
         function scrollToTop() {
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // TOC toggle for small screens and a simple scroll-spy to highlight active section
         (function () {
             const toc = document.querySelector('.rules-toc');
             const tocToggle = document.querySelector('.toc-toggle');
 
             if (!toc || !tocToggle) return;
 
-            // Toggle visibility on small screens
             tocToggle.addEventListener('click', () => {
                 const expanded = tocToggle.getAttribute('aria-expanded') === 'true';
                 tocToggle.setAttribute('aria-expanded', String(!expanded));
                 toc.style.display = expanded ? 'none' : 'block';
             });
 
-            // Initialize state based on viewport
             const mq = window.matchMedia('(max-width: 900px)');
             function updateTocForSize(e) {
                 if (e.matches) {
@@ -242,7 +236,6 @@
             else mq.addListener(updateTocForSize);
             updateTocForSize(mq);
 
-            // Scroll-spy: highlight heading currently in view
             const tocLinks = document.querySelectorAll('.toc-list a');
             const headings = document.querySelectorAll('.rules-content h2, .rules-content h3');
 
@@ -263,7 +256,6 @@
 
             headings.forEach(h => observer.observe(h));
 
-            // Close TOC on mobile after clicking a link
             tocLinks.forEach(a => {
                 a.addEventListener('click', () => {
                     if (window.matchMedia('(max-width: 900px)').matches) {
