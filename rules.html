@@ -25,7 +25,7 @@
                 <span class="logo-text">ELEMENTRIX</span>
             </a>
 
-            <button class="mobile-menu-toggle" aria-label="Toggle menu">
+            <button type="button" class="mobile-menu-toggle" aria-label="Toggle menu">
                 <span></span><span></span><span></span>
             </button>
 
@@ -52,10 +52,10 @@
             </header>
 
             <div class="rules-layout">
-                <aside class="rules-toc card" aria-label="Table of contents">
+                <aside id="toc" class="rules-toc card" aria-label="Table of contents">
                     <div class="toc-top">
                         <h3>Contents</h3>
-                        <button class="toc-toggle" aria-expanded="true" aria-controls="toc-list">Contents</button>
+                        <button type="button" class="toc-toggle" aria-expanded="false" aria-controls="toc-list" aria-label="Toggle table of contents">Contents</button>
                     </div>
                     <ol id="toc-list" class="toc-list">
                         <li><a href="#general">1. General Conduct</a></li>
@@ -179,7 +179,7 @@
 
                     <div class="section-actions">
                         <a href="index.html" class="btn btn-secondary">Back to Home</a>
-                        <a href="#toc-list" class="btn btn-primary">Jump to Contents</a>
+                        <a href="#toc" class="btn btn-primary">Jump to Contents</a>
                     </div>
                 </div> <!-- .rules-content -->
             </div> <!-- .rules-layout -->
@@ -204,6 +204,11 @@
     <script>
         // Small script to set the copyright year on this page.
         document.getElementById('footer-year-rules').textContent = new Date().getFullYear();
+
+        // Utility: smooth scroll to top (used by footer link)
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
 
         // TOC toggle for small screens and a simple scroll-spy to highlight active section
         (function () {
