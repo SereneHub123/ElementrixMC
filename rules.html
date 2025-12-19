@@ -1,187 +1,273 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Elementrix SMP | The Ultimate Elemental Survival</title>
-    <meta name="description" content="Join Elementrix SMP! Master Fire, Water, Earth, or Air. A cracked Minecraft Survival server with PvP, bending, and no pay-to-win.">
-    
-    <meta property="og:type" content="website">
-    <meta property="og:title" content="Elementrix SMP - Master the Elements">
-    <meta property="og:description" content="Cracked Survival with Avatar Bending. Join now at play.elementrix.it">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Elementrix SMP — Server Rules</title>
+    <meta name="description" content="Official rules for the Elementrix Minecraft Server — conduct, chat, gameplay, and moderation policy.">
     <meta name="theme-color" content="#6366f1">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@700;800&display=swap" rel="stylesheet">
-    <link rel="icon" href="elementrix.webp">
 
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-
     <div class="blob blob-1"></div>
     <div class="blob blob-2"></div>
 
-    <!-- NAVBAr  -->
+    <!-- NAVBAR: keeps the site consistent -->
     <nav class="navbar">
         <div class="navbar-container">
-            <a href="#home" class="logo">
-                <img src="logo.jpg" alt="Elementrix logo" class="logo-img" />
+            <a href="index.html" class="logo">
+                <img src="media/logo.webp" alt="Elementrix logo" class="logo-img" />
                 <span class="logo-text">ELEMENTRIX</span>
             </a>
-            
+
             <button class="mobile-menu-toggle" aria-label="Toggle menu">
                 <span></span><span></span><span></span>
             </button>
-            
+
             <ul class="nav-links">
-                <li><a href="#home" class="active">Home</a></li>
-                <li><a href="#features">Features</a></li>
-                <li><a href="#elements">Elements</a></li>
-                <li><a href="#how-to-join">Join</a></li>
-                <li><a href="#links">Links</a></li>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="index.html#features">Features</a></li>
+                <li><a href="rules.html" class="active">Rules</a></li>
+                <li><a href="index.html#how-to-join">Join</a></li>
+                <li><a href="index.html#links">Links</a></li>
             </ul>
-            
+
             <div class="nav-right">
-                <div class="server-pill">
-                    <span class="pulse-dot"></span>
-                    <span id="nav-player-count">Loading...</span>
-                </div>
-                <button class="btn btn-primary btn-small" data-nav-copy-ip>
-                    <span>Copy IP</span>
-                </button>
-                <button id="theme-toggle" class="btn btn-secondary btn-small" aria-pressed="false" aria-label="Toggle dark mode" title="Toggle dark mode">
-                    <svg id="theme-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2"></path><path d="M12 20v2"></path><path d="M4.93 4.93l1.41 1.41"></path><path d="M17.66 17.66l1.41 1.41"></path><path d="M2 12h2"></path><path d="M20 12h2"></path><path d="M4.93 19.07l1.41-1.41"></path><path d="M17.66 6.34l1.41-1.41"></path></svg>
-                </button>
+                <a href="#toc" class="btn btn-secondary btn-small">Jump to Contents</a>
             </div>
         </div>
     </nav>
-    <main>
-        <h1 class="rules">Elementrix – Official Rules</h1>
 
-<p class="rules_welcome">Welcome to Elementrix! These rules are designed to ensure a fair, enjoyable, and respectful environment for all players. By joining and playing on the Elementrix Minecraft Server, you automatically agree to follow the rules listed below. 
-                        Failure to comply may result in warnings, mutes, kicks, temporary bans, or permanent bans depending on severity.</p>
+    <main class="section" id="rules-main">
+        <div class="section-container">
+            <header class="page-header">
+                <h1 class="page-title">Elementrix Minecraft Server — Official Rules</h1>
+                <p class="page-subtitle">These rules ensure a fair, enjoyable, and respectful environment for all players. By joining Elementrix you agree to follow them.</p>
+                <p class="muted">Last updated: December 13, 2025</p>
+            </header>
 
-<pre>1. General Conduct
+            <div class="rules-layout">
+                <aside class="rules-toc card" aria-label="Table of contents">
+                    <div class="toc-top">
+                        <h3>Contents</h3>
+                        <button class="toc-toggle" aria-expanded="true" aria-controls="toc-list">Contents</button>
+                    </div>
+                    <ol id="toc-list" class="toc-list">
+                        <li><a href="#general">1. General Conduct</a></li>
+                        <li><a href="#chat">2. Chat Rules</a></li>
+                        <li><a href="#gameplay">3. Gameplay Rules</a></li>
+                        <li><a href="#cheating">4. Cheating & Exploits</a></li>
+                        <li><a href="#builds">5. Builds & World Rules</a></li>
+                        <li><a href="#economy">6. Economy & Items</a></li>
+                        <li><a href="#alts">7. Alternate Accounts (Alts)</a></li>
+                        <li><a href="#staff">8. Staff & Punishments</a></li>
+                        <li><a href="#changes">9. Rule Changes</a></li>
+                        <li><a href="#final">10. Final Notes</a></li>
+                    </ol>
+                </aside>
 
-1.1 Respect All Players
-Treat all players with respect. Harassment, hate speech, discrimination, racism, sexism, threats, or targeted abuse are strictly prohibited.
+                <div class="rules-content">
+                    <article class="card prose">
+                <section id="general">
+                    <h2>1. General Conduct</h2>
+                    <ol>
+                        <li><strong>Respect All Players:</strong> Treat everyone with courtesy. Harassment, hate speech, discrimination, threats, or targeted abuse are prohibited.</li>
+                        <li><strong>No Excessive Toxicity:</strong> Light competitive banter is allowed; sustained bullying or provoking is not.</li>
+                        <li><strong>Appropriate Language:</strong> Avoid excessive swearing, sexual content, or other inappropriate public discussion. Keep it welcoming.</li>
+                        <li><strong>Staff Respect:</strong> Follow staff instructions. Impersonating staff or publicly arguing with staff decisions is not allowed.</li>
+                    </ol>
+                </section>
 
-1.2 No Excessive Toxicity
-Friendly trash talk is allowed, but excessive toxicity, bullying, or intentionally provoking others is not.
+                <section id="chat">
+                    <h2>2. Chat Rules</h2>
+                    <ol>
+                        <li><strong>No Spamming or Flooding:</strong> Repeated messages, emojis, or command spam are not permitted.</li>
+                        <li><strong>No Advertising:</strong> Do not advertise other servers, Discords, channels, or services without staff permission.</li>
+                        <li><strong>No Scamming or Lying for Gain:</strong> Deceiving players to obtain items, currency, or advantages is prohibited.</li>
+                        <li><strong>Channel Use:</strong> Keep discussions relevant to their channel (e.g., trading in trade channels).</li>
+                    </ol>
+                </section>
 
-1.3 Appropriate Language
-Excessive swearing, sexual content, or inappropriate discussion in public chat is not allowed. Keep the server friendly and welcoming.
+                <section id="gameplay">
+                    <h2>3. Gameplay Rules</h2>
+                    <ol>
+                        <li>
+                            <strong>3.1 Griefing & Raiding:</strong>
+                            <p>Griefing is permitted on Elementrix. Players are responsible for protecting their own builds. Raiding bases, breaking structures, and taking items is allowed unless explicitly restricted for an event or protected region. Complaints about standard griefing or raiding will generally not lead to rollbacks.</p>
+                            <p><strong>Exception:</strong> Griefing intended to lag the server, target harassment, or abuse game mechanics is prohibited.</p>
+                        </li>
 
-1.4 Staff Respect
-Staff decisions must be respected. Arguing in public chat, ignoring staff instructions, or impersonating staff members is prohibited.
+                        <li>
+                            <strong>3.2 PvP (Player vs Player):</strong>
+                            <p>PvP is allowed unless you are in a protected or PvP-disabled zone. Spawn-killing or repeatedly targeting the same player to harass them is not allowed.</p>
+                        </li>
 
-2. Chat Rules
+                        <li>
+                            <strong>3.3 Trades & Scamming:</strong>
+                            <p>Player-to-player trades are at your own risk. Staff generally will not refund items lost to scams unless explicitly stated for rare, exceptional cases.</p>
+                        </li>
+                    </ol>
+                </section>
 
-2.1 No Spamming or Flooding
-Do not spam messages, emojis, commands, or repeated characters.
+                <section id="cheating">
+                    <h2>4. Cheating & Exploits</h2>
+                    <ol>
+                        <li><strong>No Hacked Clients or Unfair Mods:</strong> Using X-ray, kill aura, fly hacks, auto-clickers, or similar tools is strictly prohibited.</li>
+                        <li><strong>Bug & Exploit Abuse:</strong> Do not exploit bugs or glitches for gain. Report discovered bugs to staff immediately.</li>
+                        <li><strong>Lag & Server Abuse:</strong> Creating lag machines, excessive entity spawns, or other behavior intended to degrade server stability is prohibited.</li>
+                    </ol>
+                </section>
 
-2.2 No Advertising
-Advertising other servers, Discords, YouTube channels, or services without staff permission is not allowed.
+                <section id="builds">
+                    <h2>5. Builds & World Rules</h2>
+                    <ol>
+                        <li><strong>Inappropriate Builds:</strong> Builds containing offensive symbols, sexual content, or hate imagery are not allowed.</li>
+                        <li><strong>Spawn & Protected Areas:</strong> Do not grief, exploit, or bypass protections in spawn or other protected regions.</li>
+                        <li><strong>Real-Life Threats:</strong> Any build or message implying real-life violence or threats will result in immediate punishment.</li>
+                    </ol>
+                </section>
 
-2.3 No Scamming or Lying for Gain
-Attempting to deceive players for items, currency, or advantages is strictly prohibited.
+                <section id="economy">
+                    <h2>6. Economy & Items</h2>
+                    <ol>
+                        <li><strong>Duplication:</strong> Item duplication of any kind is prohibited.</li>
+                        <li><strong>Abusing Economy Systems:</strong> Exploiting shops, crates, rewards, or plugins for unfair profit is not allowed.</li>
+                        <li><strong>Custom Items & Abilities:</strong> Abusing custom items, perks, or abilities beyond intended use may result in punishment.</li>
+                    </ol>
+                </section>
 
-2.4 Use the Correct Chat Channels
-Keep discussions relevant to the channel or purpose (e.g., trade-related chat for trading).
+                <section id="alts">
+                    <h2>7. Alternate Accounts (Alts)</h2>
+                    <ol>
+                        <li><strong>Alt Abuse:</strong> Using alternate accounts to bypass punishments, farm rewards, or gain unfair advantages is not allowed.</li>
+                        <li><strong>Account Responsibility:</strong> You are responsible for actions taken on your account. Sharing accounts is discouraged.</li>
+                    </ol>
+                </section>
 
-3. Gameplay Rules
-3.1 Griefing & Raiding
+                <section id="staff">
+                    <h2>8. Staff & Punishments</h2>
+                    <ol>
+                        <li><strong>Staff Authority:</strong> Staff decisions are final in-game. Context and intent will be considered.</li>
+                        <li><strong>Punishment Escalation:</strong> Repeated or severe offenses may lead to escalating punishments.</li>
+                        <li><strong>No Public Complaints:</strong> Do not publicly argue punishments. Use the designated appeal channels (Discord/support).</li>
+                    </ol>
+                </section>
 
-Griefing is ALLOWED on Elementrix. Players are responsible for protecting their own builds.
+                <section id="changes">
+                    <h2>9. Rule Changes</h2>
+                    <ol>
+                        <li><strong>Updates:</strong> Rules may be updated at any time. It is the player’s responsibility to stay informed.</li>
+                        <li><strong>Unlisted Situations:</strong> If a situation is not covered, staff judgment will be applied.</li>
+                    </ol>
+                </section>
 
-Raiding bases, breaking structures, and stealing items is permitted unless otherwise stated for specific events or protected areas.
+                <section id="final">
+                    <h2>10. Final Notes</h2>
+                    <ol>
+                        <li>By playing on Elementrix, you agree to these rules. "I didn’t know" is not a valid excuse.</li>
+                        <li>Have fun, play fair, and enjoy the chaos — responsibly.</li>
+                    </ol>
 
-Complaints about griefing or raiding will generally not result in rollbacks.
+                    <p class="muted">Questions or appeals: reach out on our <a href="#" data-discord-link>Discord</a> or the official support channel.</p>
+                </section>
+                    </article>
 
-⚠️ However: Griefing purely to lag the server, target harassment, or abuse game mechanics (see Section 4) is not allowed.
-
-3.2 PvP (Player vs Player)
-
-PvP is allowed unless you are in a protected or PvP-disabled zone.
-
-Spawn killing or repeatedly targeting the same player to harass them is not allowed.
-
-3.3 Scamming in Trades
-
-Player-to-player trades are at your own risk.
-
-Staff will not refund items lost due to scams unless explicitly stated in special cases.
-
-4. Cheating & Exploits
-
-4.1 No Hacked Clients or Mods
-Using hacked clients, X-ray, kill aura, fly hacks, auto-clickers, or any unfair advantage is strictly prohibited.
-
-4.2 Bug & Exploit Abuse
-Exploiting bugs, glitches, or unintended mechanics for personal gain is not allowed. Bugs must be reported to staff.
-
-4.3 Lag Machines & Server Abuse
-Creating lag machines, entity spam, redstone clocks meant to crash or lag the server is prohibited.
-
-5. Builds & World Rules
-
-5.1 Inappropriate Builds
-Builds that contain offensive symbols, sexual content, or hate-related imagery are not allowed.
-
-5.2 Spawn & Protected Areas
-Do not grief, exploit, or bypass protections in spawn or other protected regions.
-
-5.3 Real-Life Threats
-Any build or message that implies real-life violence or threats will result in immediate punishment.
-
-6. Economy & Items
-
-6.1 Duplication
-Item duplication of any kind is strictly prohibited.
-
-6.2 Abusing Economy Systems
-Exploiting shop systems, crates, rewards, or plugins for unfair profit is not allowed.
-
-6.3 Custom Items & Abilities
-Abusing custom items, bending abilities, or perks beyond their intended use may result in punishment.
-
-7. Alternate Accounts (Alts)
-
-7.1 Alt Abuse
-Using alternate accounts to bypass punishments, farm rewards, or gain unfair advantages is not allowed.
-
-7.2 Account Responsibility
-You are responsible for everything that happens on your account. Sharing accounts is discouraged.
-
-8. Staff & Punishments
-
-8.1 Staff Authority
-Staff members have the final say in all situations. Context and intent will be considered.
-
-8.2 Punishment Escalation
-Punishments may escalate based on repeated offenses or severity.
-
-8.3 No Public Complaints
-Do not publicly complain about punishments. Appeals should be made through the proper channels (Discord or support system).
-
-9. Rule Changes
-
-9.1 Updates to Rules
-Rules may be updated at any time. It is the player’s responsibility to stay informed.
-
-9.2 Unlisted Situations
-If a situation is not clearly covered in the rules, staff judgment will apply.
-
-10. Final Notes
-
-Playing on Elementrix means you agree to these rules.
-
-"I didn’t know" is not a valid excuse.
-
-Have fun, play fair, and enjoy the chaos — responsibly.
-
-Thank you for being part of Elementrix!
-    <pre>
+                    <div class="section-actions">
+                        <a href="index.html" class="btn btn-secondary">Back to Home</a>
+                        <a href="#toc-list" class="btn btn-primary">Jump to Contents</a>
+                    </div>
+                </div> <!-- .rules-content -->
+            </div> <!-- .rules-layout -->
+        </div>
     </main>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-left">
+                <span class="footer-logo">ELEMENTRIX</span>
+                <p class="footer-text">© <span id="footer-year-rules"></span> Elementrix. Not affiliated with Mojang Studios.</p>
+            </div>
+            <div id="theme-status-rules" class="sr-only" aria-live="polite" aria-atomic="true"></div>
+            <div class="footer-right">
+                <a href="rules.html" class="footer-link">Server Rules</a>
+                <a href="#" class="footer-link">Privacy</a>
+                <a href="#" class="footer-link" onclick="scrollToTop(); return false;">Back to top ↑</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Small script to set the copyright year on this page.
+        document.getElementById('footer-year-rules').textContent = new Date().getFullYear();
+
+        // TOC toggle for small screens and a simple scroll-spy to highlight active section
+        (function () {
+            const toc = document.querySelector('.rules-toc');
+            const tocToggle = document.querySelector('.toc-toggle');
+
+            if (!toc || !tocToggle) return;
+
+            // Toggle visibility on small screens
+            tocToggle.addEventListener('click', () => {
+                const expanded = tocToggle.getAttribute('aria-expanded') === 'true';
+                tocToggle.setAttribute('aria-expanded', String(!expanded));
+                toc.style.display = expanded ? 'none' : 'block';
+            });
+
+            // Initialize state based on viewport
+            const mq = window.matchMedia('(max-width: 900px)');
+            function updateTocForSize(e) {
+                if (e.matches) {
+                    toc.style.display = 'none';
+                    tocToggle.style.display = 'inline-block';
+                    tocToggle.setAttribute('aria-expanded', 'false');
+                } else {
+                    toc.style.display = '';
+                    tocToggle.style.display = 'none';
+                    tocToggle.setAttribute('aria-expanded', 'true');
+                }
+            }
+
+            if (mq.addEventListener) mq.addEventListener('change', updateTocForSize);
+            else mq.addListener(updateTocForSize);
+            updateTocForSize(mq);
+
+            // Scroll-spy: highlight heading currently in view
+            const tocLinks = document.querySelectorAll('.toc-list a');
+            const headings = document.querySelectorAll('.rules-content h2, .rules-content h3');
+
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        // find nearest section id (headings may not have ids)
+                        const sectionEl = entry.target.closest('section');
+                        const id = sectionEl ? sectionEl.id : entry.target.id;
+                        if (!id) return;
+                        tocLinks.forEach(a => {
+                            a.removeAttribute('aria-current');
+                            if (a.getAttribute('href') === `#${id}`) a.setAttribute('aria-current', 'true');
+                        });
+                    }
+                });
+            }, { root: null, rootMargin: '0px 0px -60% 0px', threshold: 0.1 });
+
+            headings.forEach(h => observer.observe(h));
+
+            // Close TOC on mobile after clicking a link
+            tocLinks.forEach(a => {
+                a.addEventListener('click', () => {
+                    if (window.matchMedia('(max-width: 900px)').matches) {
+                        toc.style.display = 'none';
+                        tocToggle.setAttribute('aria-expanded', 'false');
+                    }
+                });
+            });
+        })();
+    </script>
+</body>
+</html>
