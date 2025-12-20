@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elementrix | Premium MOTD Studio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&family=JetBrains+Mono&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0a0a0b;
+            --card: #141417;
+            --accent: #10b981;
+            --accent-hover: #059669;
+            --border: #27272a;
+            --text-dim: #71717a;
+            --mc-font: 'JetBrains Mono', monospace;
+            --ui-font: 'Space Grotesk', sans-serif;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            font-family: var(--ui-font);
+            background-color: var(--bg);
+            color: #ffffff;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .branding { text-align: center; margin-bottom: 40px; }
+        .branding h1 { font-size: 3.5rem; margin: 0; letter-spacing: -3px; font-weight: 700; }
+        .branding span { color: var(--accent); }
+        .branding p { color: var(--text-dim); margin-top: 5px; font-size: 1.1rem; }
+
+        .studio {
+            width: 100%;
+            max-width: 1000px;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 32px;
+            box-shadow: 0 50px 100px -20px rgba(0,0,0,0.7);
+        }
+
+        .preview-window {
+            background: linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.75)), 
+                        url('https://www.minecraft.net/etc.clientlibs/minecraft/clientlibs/main/resources/img/dirt.png');
+            background-size: 64px;
+            image-rendering: pixelated;
+            border-radius: 8px;
+            padding: 24px;
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+            margin-bottom: 24px;
+            border: 4px solid #000;
+            box-shadow: inset 0 0 40px #000;
+        }
+
+        .server-icon {
+            width: 64px;
+            height: 64px;
+            background: #111;
+            border: 2px solid #333;
+            flex-shrink: 0;
+            background-size: cover;
+            border-radius: 2px;
+        }
+
+        .motd-render {
+            font-family: var(--mc-font);
+            font-size: 19px;
+            line-height: 1.3;
+            white-space: pre-wrap;
+            text-shadow: 2px 2px 0px rgba(0,0,0,0.8);
+            width: 100%;
+            min-height: 50px;
+        }
+
+        .editor-layout {
+            display: grid;
+            grid-template-columns: 1fr 320px;
+            gap: 24px;
+        }
+
+        textarea {
+            width: 100%;
+            height: 160px;
+            background: #09090b;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            color: #fff;
+            padding: 20px;
+            font-family: var(--mc-font);
+            font-size: 16px;
+            resize: none;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        textarea:focus { border-color: var(--accent); }
+
+        .toolbar-side { display: flex; flex-direction: column; gap: 12px; }
+
+        .grid-colors {
+            display: grid;
+            grid-template-columns: repeat(8, 1fr);
+            gap: 6px;
+        }
+
+        .swatch {
+            aspect-ratio: 1;
+            border-radius: 4px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--mc-font);
+            font-weight: bold;
+            font-size: 12px;
+            border: 1px solid rgba(255,255,255,0.05);
+            transition: 0.1s;
+        }
+        .swatch:hover { transform: scale(1.1); z-index: 10; }
+
+        .btn-row { display: flex; gap: 8px; flex-wrap: wrap; }
+        .btn {
+            background: #27272a;
+            color: #fff;
+            border: none;
+            padding: 10px 16px;
+            border-radius: 8px;
+            font-family: var(--ui-font);
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.2s;
+            font-size: 13px;
+        }
+        .btn:hover { background: #3f3f46; }
+        .btn-accent { background: var(--accent); color: #000; }
+        .btn-accent:hover { background: var(--accent-hover); }
+
+        /* --- Grab Modal --- */
+        #grab-modal {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.9);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        .modal-body {
+            background: var(--card);
+            padding: 32px;
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            width: 400px;
+            text-align: center;
+        }
+        .modal-body input {
+            width: 100%;
+            padding: 14px;
+            background: #000;
+            border: 1px solid #333;
+            color: #fff;
+            border-radius: 8px;
+            margin: 20px 0;
+            font-family: var(--ui-font);
+        }
+
+        /* --- Toast Notifications --- */
+        #toast-container {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            z-index: 9999;
+        }
+        .toast {
+            background: #18181b;
+            color: #fff;
+            padding: 14px 24px;
+            border-radius: 8px;
+            border-left: 5px solid var(--accent);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            font-weight: 600;
+            font-size: 14px;
+            animation: slideIn 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+        }
+        .toast.error { border-left-color: #ef4444; }
+        @keyframes slideIn { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+
+        /* MC Code Styles */
+        .mc-l { font-weight: bold; }
+        .mc-o { font-style: italic; }
+        .mc-n { text-decoration: underline; }
+        .mc-m { text-decoration: line-through; }
+
+        /* --- Utilities & Accessibility --- */
+        .sr-only { position: absolute; left: -10000px; top: auto; width: 1px; height: 1px; overflow: hidden; }
+        .btn.full { flex: 1; }
+        .btn-row.btn-row-center { justify-content: center; }
+        .preset-row { margin-top: 20px; }
+        .preset-label { font-size: 11px; font-weight: 700; color: #555; text-transform: uppercase; margin-bottom: 8px; display: block; }
+        .preset-select { width:100%; background:#09090b; border:1px solid var(--border); color:#fff; padding:12px; border-radius:8px; outline:none; font-family: var(--ui-font); }
+        .modal-title { margin:0; letter-spacing:-1px; }
+        .accent-green { background: #1a7a4d; }
+        .danger { color: #ef4444; background: #27272a; }
+        .btn:disabled { opacity: 0.6; cursor: not-allowed; }
+        .btn:focus { outline: 3px solid rgba(16,185,129,0.18); outline-offset: 2px; }
+        .preset-select:focus, textarea:focus, .modal-body input:focus { box-shadow: 0 0 0 3px rgba(16,185,129,0.06); }
+    </style>
+</head>
+<body>
+
+<div id="toast-container"></div>
+
+<div id="grab-modal" aria-hidden="true">
+    <div class="modal-body" role="dialog" aria-modal="true" aria-labelledby="grab-title">
+        <h2 id="grab-title" class="modal-title">Grab from Server</h2>
+        <label for="server-ip" class="sr-only">Server IP</label>
+        <input type="text" id="server-ip" placeholder="e.g. play.hypixel.net" autocomplete="off">
+        <div class="btn-row btn-row-center">
+            <button class="btn btn-accent full" id="fetch-server-btn" type="button">Fetch Now</button>
+            <button class="btn" id="cancel-modal-btn" type="button">Cancel</button>
+        </div>
+    </div>
+</div>
+
+<div class="branding">
+    <h1>elementrix<span>.it</span></h1>
+    <p>Premium Minecraft MOTD Studio</p>
+</div>
+
+<div class="studio">
+    <div class="preview-window">
+        <div id="icon-preview" class="server-icon" data-src="https://api.mcstatus.io/v2/icon/play.hypixel.net" aria-hidden="true"></div>
+        <div id="motd-render" class="motd-render" aria-live="polite"></div>
+    </div>
+
+    <div class="editor-layout">
+        <div class="input-pane">
+            <textarea id="motd-input" placeholder="Enter your MOTD... use & codes (e.g. &aHello)" aria-label="MOTD editor"></textarea>
+
+            <div class="preset-row">
+                <label class="preset-label">Template Presets</label>
+                <select id="presets" class="preset-select" aria-label="Template presets">
+                    <option value="">-- Select a Preset --</option>
+                    <option value="&6&lELEMENTRIX NETWORK &f[1.21]\n&eJoin now for &b&lFREE RANKS!">Competitive Hype</option>
+                    <option value="&c&l● MAINTENANCE &c&l●\n&7We are currently updating our hardware...">Maintenance</option>
+                    <option value="&d&l❤ CUTE SURVIVAL ❤\n&fActive Staff &7| &aNo Grief">Aesthetic Survival</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="toolbar-side">
+            <div class="grid-colors" id="palette"></div>
+            
+            <div class="btn-row">
+                <button class="btn full" data-action="insert" data-value="&l" type="button">Bold</button>
+                <button class="btn full" data-action="insert" data-value="&o" type="button">Italic</button>
+                <button class="btn full" data-action="insert" data-value="&r" type="button">Reset</button>
+            </div>
+
+            <div class="btn-row">
+                <button class="btn btn-accent full" id="copy-motd-btn" type="button">📄 Get your MOTD</button>
+            </div>
+
+            <div class="btn-row">
+                <button class="btn full" id="open-modal-btn" type="button">🌐 Grab from server</button>
+            </div>
+
+            <div class="btn-row">
+                <button class="btn full accent-green" id="center-line-btn" type="button">≡ Center current line</button>
+                <button class="btn full danger" id="clear-btn" type="button">Clear</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const input = document.getElementById('motd-input');
+    const render = document.getElementById('motd-render');
+    const palette = document.getElementById('palette');
+    const iconPreview = document.getElementById('icon-preview');
+
+    const colors = {
+        '0':'#000','1':'#00A','2':'#0A0','3':'#0AA','4':'#A00','5':'#A0A','6':'#FA0','7':'#AAA',
+        '8':'#555','9':'#55F','a':'#5F5','b':'#5FF','c':'#F55','d':'#F5F','e':'#FF5','f':'#FFF'
+    };
+
+    // Initialize UI (palette)
+    Object.entries(colors).forEach(([code, hex]) => {
+        const div = document.createElement('div');
+        div.className = 'swatch';
+        div.style.backgroundColor = hex;
+        div.style.color = ['f','e','a','b'].includes(code) ? '#000' : '#fff';
+        div.innerText = code;
+        div.dataset.code = code;
+        div.addEventListener('click', () => insertCode('&' + code));
+        palette.appendChild(div);
+    });
+
+    function showToast(msg, type = 'success') {
+        const toast = document.createElement('div');
+        toast.className = `toast ${type === 'error' ? 'error' : ''}`;
+        toast.setAttribute('role', 'status');
+        toast.innerText = msg;
+        document.getElementById('toast-container').appendChild(toast);
+        setTimeout(() => { toast.style.opacity = '0'; setTimeout(() => toast.remove(), 500); }, 3000);
+    }
+
+    function updatePreview() {
+        const text = input.value || '';
+        const escaped = text.replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+        const parts = escaped.replace(/\n/g, '<br>').split(/&([0-9a-fk-or])/gi);
+        let currentClasses = [];
+        let currentColor = '';
+        let html = parts[0] || '';
+
+        for (let i = 1; i < parts.length; i += 2) {
+            const code = (parts[i] || '').toLowerCase();
+            const content = parts[i + 1] || '';
+            if (code === 'r') { currentClasses = []; currentColor = ''; }
+            else if (['l','o','n','m','k'].includes(code)) { currentClasses.push('mc-' + code); }
+            else if (colors[code]) { currentColor = colors[code]; }
+            const cls = currentClasses.length ? ` class="${currentClasses.join(' ')}"` : '';
+            const style = currentColor ? ` style="color:${currentColor}"` : '';
+            html += `<span${cls}${style}>${content}</span>`;
+        }
+        if (!html) render.textContent = 'Minecraft Server'; else render.innerHTML = html;
+    }
+
+    // THE FIXED CENTERING LOGIC
+    function centerLineLogic() {
+        const text = input.value;
+        const selectionStart = input.selectionStart;
+        const before = text.slice(0, selectionStart);
+        const lineIndex = before.split('\n').length - 1;
+        const lines = text.split('\n');
+        const lineText = (lines[lineIndex] || '').trim();
+        const cleanLength = lineText.replace(/&[0-9a-fk-or]/gi, '').length;
+        const maxChar = 45; // Standard MC line width
+        
+        if (cleanLength < maxChar) {
+            const paddingSize = Math.floor((maxChar - cleanLength) / 2);
+            lines[lineIndex] = ' '.repeat(paddingSize) + lineText;
+            input.value = lines.join('\n');
+            updatePreview();
+            showToast('Line Centered!');
+        } else {
+            showToast('Line is too long to center', 'error');
+        }
+    }
+
+    function insertCode(code) {
+        const start = input.selectionStart;
+        const end = input.selectionEnd;
+        input.value = input.value.substring(0, start) + code + input.value.substring(end);
+        input.focus();
+        updatePreview();
+    }
+
+    function openModal() { const m = document.getElementById('grab-modal'); m.style.display = 'flex'; m.setAttribute('aria-hidden','false'); document.getElementById('server-ip').focus(); }
+    function closeModal() { const m = document.getElementById('grab-modal'); m.style.display = 'none'; m.setAttribute('aria-hidden','true'); const btn = document.getElementById('open-modal-btn'); if(btn) btn.focus(); }
+
+    async function fetchServer() {
+        const ip = document.getElementById('server-ip').value.trim();
+        if(!ip) return showToast("Enter an IP", "error");
+        
+        const btn = document.getElementById('fetch-server-btn');
+        if (btn) btn.disabled = true; showToast('Fetching...');
+        try {
+            const res = await fetch('https://api.mcstatus.io/v2/status/java/' + encodeURIComponent(ip));
+            if(!res.ok) throw new Error('Network error');
+            const data = await res.json();
+            if(data && data.online) {
+                let raw = data.motd && data.motd.raw ? data.motd.raw : '';
+                if(Array.isArray(raw)) raw = raw.join('\n');
+                input.value = String(raw).replace(/§/g, '&');
+                if (iconPreview) iconPreview.style.backgroundImage = `url('https://api.mcstatus.io/v2/icon/${encodeURIComponent(ip)}')`;
+                updatePreview(); closeModal(); showToast('Server Loaded!');
+            } else { showToast('Server Offline', 'error'); }
+        } catch(e) { showToast('Connection Error', 'error'); }
+        finally{ if (btn) btn.disabled = false; }
+    }
+
+    function loadPreset(val) {
+        if(!val) return;
+        input.value = val.replace(/\\n/g, '\n');
+        updatePreview();
+        showToast("Preset Loaded");
+    }
+
+    function copyCode() {
+        const out = input.value.replace(/\n/g, '\\n');
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(out).then(() => showToast('Copied your MOTD!')).catch(() => fallbackCopy(out));
+        } else {
+            fallbackCopy(out);
+        }
+    }
+    function fallbackCopy(text){
+        try{
+            const ta = document.createElement('textarea'); ta.value = text; ta.style.position='fixed'; ta.style.left='-9999px'; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); ta.remove(); showToast('Copied your MOTD!');
+        }catch(e){ showToast('Copy failed','error'); }
+    }
+
+    function clearInput() {
+        input.value = "";
+        updatePreview();
+        showToast("Cleared", "error");
+    }
+
+    // Bindings
+    document.addEventListener('click', (e) => {
+        const target = e.target;
+        const btn = (target && target.closest) ? target.closest('button[data-action="insert"]') : null;
+        if (btn) insertCode(btn.dataset.value);
+    });
+    // keep preview up-to-date as user types
+    input.addEventListener('input', updatePreview);
+    const presetsEl = document.getElementById('presets');
+    if (presetsEl) presetsEl.addEventListener('change', (e) => loadPreset(e.target.value));
+    document.getElementById('copy-motd-btn').addEventListener('click', copyCode);
+    document.getElementById('open-modal-btn').addEventListener('click', openModal);
+    document.getElementById('cancel-modal-btn').addEventListener('click', closeModal);
+    document.getElementById('fetch-server-btn').addEventListener('click', fetchServer);
+    document.getElementById('center-line-btn').addEventListener('click', centerLineLogic);
+    document.getElementById('clear-btn').addEventListener('click', clearInput);
+
+    const modalEl = document.getElementById('grab-modal');
+    if (modalEl) modalEl.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
+    const serverIpEl = document.getElementById('server-ip');
+    if (serverIpEl) serverIpEl.addEventListener('keydown', (e) => { if (e.key === 'Enter') fetchServer(); });
+
+    // Default State
+    input.value = "&a&lHYPIXEL NETWORK &c[1.8/1.21]\n&2&lSB GREENHOUSE &8- &b&lBONUS COINS + XP";
+    updatePreview();
+</script>
+
+</body>
+</html>
