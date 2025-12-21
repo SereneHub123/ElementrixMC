@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Elementrix | Vote</title>
+  <link rel="icon" href="https://media.discordapp.net/attachments/1374620701436153907/1408762353167765534/cropped_circle_image.png?ex=68aaebae&is=68a99a2e&hm=c28492e6d1faf173e4d5d93fd8454d774ca981ef62844e8474a6e9ddf6b8960f&=&format=webp&quality=lossless&width=298&height=298" type="image/png">
+
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background: radial-gradient(circle at top, #102733, #0d1c26);
+      color: white;
+      text-align: center;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-top: 50px;
+    }
+
+    h1 {
+      font-size: 3.5rem;
+      color: aqua;
+      letter-spacing: 1px;
+      margin: 0;
+      text-shadow: 0 0 8px rgba(0,255,255,0.8), 0 0 25px rgba(0,255,255,0.6);
+      animation: glow 2s ease-in-out infinite alternate;
+    }
+
+    @keyframes glow {
+      from { text-shadow: 0 0 10px aqua, 0 0 25px cyan, 0 0 40px deepskyblue; }
+      to   { text-shadow: 0 0 20px aqua, 0 0 35px cyan, 0 0 60px deepskyblue; }
+    }
+
+    h2 {
+      font-size: 1.2rem;
+      margin-top: 6px;
+      font-weight: 400;
+      opacity: 0.9;
+      color: #f0f0f0;
+      text-shadow: 0 0 6px rgba(255,255,255,0.4);
+      margin-bottom: 30px;
+    }
+
+    .box-container {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      width: 90%;
+      max-width: 500px;
+    }
+
+    .box {
+      background: rgba(255,255,255,0.04);
+      border: 1.5px solid rgba(255,255,255,0.15);
+      border-radius: 12px;
+      padding: 20px;
+      font-size: 1.1rem;
+      font-weight: 500;
+      color: #e6f9ff;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+      user-select: none;
+    }
+
+    .box:hover {
+      background: rgba(0, 255, 255, 0.1);
+      transform: translateY(-5px) scale(1.02);
+      border-color: aqua;
+      box-shadow: 0 0 14px aqua, 0 0 30px cyan;
+    }
+
+    footer {
+      margin-top: 40px;
+      font-size: 0.9rem;
+      opacity: 0.6;
+    }
+
+    /* Mobile Responsiveness */
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 2.5rem;
+      }
+      h2 {
+        font-size: 1rem;
+        margin-bottom: 25px;
+      }
+      .box {
+        font-size: 1rem;
+        padding: 18px;
+      }
+      .box-container {
+        width: 95%;
+      }
+    }
+
+    @media (max-width: 400px) {
+      h1 {
+        font-size: 2rem;
+      }
+      h2 {
+        font-size: 0.9rem;
+      }
+      .box {
+        font-size: 0.95rem;
+        padding: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>ElementrixMC</h1>
+  <h2>Vote for Elementrix and help us grow!</h2>
+
+  <div class="box-container">
+    <div class="box" onclick="window.open('https://minecraft.buzz/vote/16011', '_blank')">Vote link #1</div>
+    <div class="box" onclick="window.open('https://minecraftservers.org/vote/677564', '_blank')">Vote link #2</div>
+    <div class="box" onclick="window.open('https://minecraft-mp.com/server/347454/vote/', '_blank')">Vote link #3</div>
+    <div class="box" onclick="window.open('https://servers-minecraft.net/server-elementrix.41873', '_blank')">Vote link #4</div>
+    <div class="box" onclick="window.open('https://mc-listing.com/vote/175', '_blank')">Vote link #5</div>
+  </div>
+
+  <footer>Thank you for supporting Elementrix ❤️</footer>
+</body>
+</html>
