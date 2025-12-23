@@ -1,129 +1,239 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Elementrix | Vote</title>
-  <link rel="icon" href="https://media.discordapp.net/attachments/1374620701436153907/1408762353167765534/cropped_circle_image.png?ex=68aaebae&is=68a99a2e&hm=c28492e6d1faf173e4d5d93fd8454d774ca981ef62844e8474a6e9ddf6b8960f&=&format=webp&quality=lossless&width=298&height=298" type="image/png">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Elementrix SMP — Vote</title>
+    <meta name="description"
+        content="Vote for Elementrix SMP to earn free crate keys, money, and help the server grow!">
+    <meta name="theme-color" content="#6366f1">
 
-  <style>
-    body {
-      margin: 0;
-      padding: 0;
-      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-      background: radial-gradient(circle at top, #102733, #0d1c26);
-      color: white;
-      text-align: center;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding-top: 50px;
-    }
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@700;800&display=swap"
+        rel="stylesheet">
 
-    h1 {
-      font-size: 3.5rem;
-      color: aqua;
-      letter-spacing: 1px;
-      margin: 0;
-      text-shadow: 0 0 8px rgba(0,255,255,0.8), 0 0 25px rgba(0,255,255,0.6);
-      animation: glow 2s ease-in-out infinite alternate;
-    }
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .vote-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1.5rem;
+            max-width: 1100px;
+            margin-left: auto;
+            margin-right: auto;
+            padding-bottom: 2rem;
+        }
 
-    @keyframes glow {
-      from { text-shadow: 0 0 10px aqua, 0 0 25px cyan, 0 0 40px deepskyblue; }
-      to   { text-shadow: 0 0 20px aqua, 0 0 35px cyan, 0 0 60px deepskyblue; }
-    }
+        .vote-card {
+            background: var(--bg-glass-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1rem 1.25rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            text-align: left;
+            width: 100%;
+            flex: 1 1 300px;
+            max-width: 330px;
+            min-height: 80px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+        }
 
-    h2 {
-      font-size: 1.2rem;
-      margin-top: 6px;
-      font-weight: 400;
-      opacity: 0.9;
-      color: #f0f0f0;
-      text-shadow: 0 0 6px rgba(255,255,255,0.4);
-      margin-bottom: 30px;
-    }
+        .vote-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 30px rgba(99, 102, 241, 0.15);
+            border-color: var(--primary);
+        }
 
-    .box-container {
-      display: flex;
-      flex-direction: column;
-      gap: 18px;
-      width: 90%;
-      max-width: 500px;
-    }
+        .vote-number {
+            font-family: var(--font-head);
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--primary);
+            opacity: 0.2;
+            line-height: 1;
+            transition: opacity 0.2s, transform 0.2s;
+        }
 
-    .box {
-      background: rgba(255,255,255,0.04);
-      border: 1.5px solid rgba(255,255,255,0.15);
-      border-radius: 12px;
-      padding: 20px;
-      font-size: 1.1rem;
-      font-weight: 500;
-      color: #e6f9ff;
-      cursor: pointer;
-      transition: all 0.25s ease;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.4);
-      user-select: none;
-    }
+        .vote-card:hover .vote-number {
+            opacity: 1;
+            transform: scale(1.1);
+        }
 
-    .box:hover {
-      background: rgba(0, 255, 255, 0.1);
-      transform: translateY(-5px) scale(1.02);
-      border-color: aqua;
-      box-shadow: 0 0 14px aqua, 0 0 30px cyan;
-    }
+        .vote-info h3 {
+            font-size: 1.1rem;
+            margin-bottom: 0.2rem;
+        }
 
-    footer {
-      margin-top: 40px;
-      font-size: 0.9rem;
-      opacity: 0.6;
-    }
+        .vote-info p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin: 0;
+        }
 
-    /* Mobile Responsiveness */
-    @media (max-width: 600px) {
-      h1 {
-        font-size: 2.5rem;
-      }
-      h2 {
-        font-size: 1rem;
-        margin-bottom: 25px;
-      }
-      .box {
-        font-size: 1rem;
-        padding: 18px;
-      }
-      .box-container {
-        width: 95%;
-      }
-    }
+        .vote-icon {
+            margin-left: auto;
+            color: var(--text-light);
+            transition: transform 0.2s;
+        }
 
-    @media (max-width: 400px) {
-      h1 {
-        font-size: 2rem;
-      }
-      h2 {
-        font-size: 0.9rem;
-      }
-      .box {
-        font-size: 0.95rem;
-        padding: 16px;
-      }
-    }
-  </style>
+        .vote-card:hover .vote-icon {
+            transform: translate(2px, -2px);
+        }
+    </style>
 </head>
+
 <body>
-  <h1>ElementrixMC</h1>
-  <h2>Vote for Elementrix and help us grow!</h2>
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
 
-  <div class="box-container">
-    <div class="box" onclick="window.open('https://minecraft.buzz/vote/16011', '_blank')">Vote link #1</div>
-    <div class="box" onclick="window.open('https://minecraftservers.org/vote/677564', '_blank')">Vote link #2</div>
-    <div class="box" onclick="window.open('https://minecraft-mp.com/server/347454/vote/', '_blank')">Vote link #3</div>
-    <div class="box" onclick="window.open('https://servers-minecraft.net/server-elementrix.41873', '_blank')">Vote link #4</div>
-    <div class="box" onclick="window.open('https://mc-listing.com/vote/175', '_blank')">Vote link #5</div>
-  </div>
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a href="index.html" class="logo">
+                <img src="media/logo.webp" alt="Elementrix logo" class="logo-img" />
+                <span class="logo-text">ELEMENTRIX</span>
+            </a>
 
-  <footer>Thank you for supporting Elementrix ❤️</footer>
+            <button type="button" class="mobile-menu-toggle" aria-label="Toggle menu">
+                <span></span><span></span><span></span>
+            </button>
+
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="index.html#features">Features</a></li>
+                <li><a href="rules.html">Rules</a></li>
+                <li><a href="index.html#how-to-join">Join</a></li>
+                <li><a href="vote.html" class="active">Vote</a></li>
+            </ul>
+
+            <div class="nav-right">
+                <button class="btn btn-primary btn-small"
+                    onclick="navigator.clipboard.writeText('play.elementrix.it'); this.innerText='IP Copied!'; setTimeout(()=>this.innerText='Copy IP', 2000);">
+                    Copy IP
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="section" id="vote-main">
+        <div class="section-container">
+            <header class="page-header">
+                <h1 class="page-title">Vote for Elementrix</h1>
+                <p class="page-subtitle">Support the server and earn <strong>Crate Keys</strong> and
+                    <strong>Money</strong> for every vote. You can vote daily on each link!
+                </p>
+            </header>
+
+            <div class="vote-grid">
+                <a href="https://minecraft.buzz/vote/16011" target="_blank" rel="noopener noreferrer"
+                    class="vote-card reveal">
+                    <div class="vote-number">01</div>
+                    <div class="vote-info">
+                        <h3>MinecraftBuzz</h3>
+                        <p>Vote now</p>
+                    </div>
+                    <div class="vote-icon">↗</div>
+                </a>
+
+                <a href="https://minecraftservers.org/vote/677564" target="_blank" rel="noopener noreferrer"
+                    class="vote-card reveal">
+                    <div class="vote-number">02</div>
+                    <div class="vote-info">
+                        <h3>MinecraftServers.org</h3>
+                        <p>Vote now</p>
+                    </div>
+                    <div class="vote-icon">↗</div>
+                </a>
+
+                <a href="https://minecraft-mp.com/server/347454/vote/" target="_blank" rel="noopener noreferrer"
+                    class="vote-card reveal">
+                    <div class="vote-number">03</div>
+                    <div class="vote-info">
+                        <h3>Minecraft-MP</h3>
+                        <p>Vote now</p>
+                    </div>
+                    <div class="vote-icon">↗</div>
+                </a>
+
+                <a href="https://servers-minecraft.net/server-elementrix.41873" target="_blank"
+                    rel="noopener noreferrer" class="vote-card reveal">
+                    <div class="vote-number">04</div>
+                    <div class="vote-info">
+                        <h3>Servers-Minecraft</h3>
+                        <p>Vote now</p>
+                    </div>
+                    <div class="vote-icon">↗</div>
+                </a>
+
+                <a href="https://mc-listing.com/vote/175" target="_blank" rel="noopener noreferrer"
+                    class="vote-card reveal">
+                    <div class="vote-number">05</div>
+                    <div class="vote-info">
+                        <h3>MC-Listing</h3>
+                        <p>Vote now</p>
+                    </div>
+                    <div class="vote-icon">↗</div>
+                </a>
+            </div>
+
+
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-left">
+                <span class="footer-logo">ELEMENTRIX</span>
+                <p class="footer-text">© <span id="footer-year"></span> Elementrix. Not affiliated with Mojang Studios.
+                </p>
+            </div>
+            <div id="theme-status" class="sr-only" aria-live="polite" aria-atomic="true"></div>
+            <div class="footer-right">
+                <a href="rules.html" class="footer-link">Server Rules</a>
+                <a href="#" class="footer-link">Privacy</a>
+                <a href="#" class="footer-link" onclick="scrollToTop(); return false;">Back to top ↑</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById('footer-year').textContent = new Date().getFullYear();
+
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        (function () {
+            const toggle = document.querySelector('.mobile-menu-toggle');
+            const navLinks = document.querySelector('.nav-links');
+            if (toggle && navLinks) {
+                toggle.addEventListener('click', () => {
+                    navLinks.classList.toggle('active');
+                });
+            }
+        })();
+
+        (function () {
+            const reveals = document.querySelectorAll('.reveal');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            reveals.forEach(el => observer.observe(el));
+        })();
+    </script>
 </body>
+
 </html>
