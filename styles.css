@@ -1,12 +1,10 @@
 :root {
-    /* Brand Palette */
     --primary: #8b5cf6;
     --primary-light: #a78bfa;
     --primary-dark: #7c3aed;
     --primary-glow: rgba(139, 92, 246, 0.25);
     --secondary: #06b6d4;
 
-    /* Elemental Accents */
     --accent-fire: #f43f5e;
     --accent-fire-glow: rgba(244, 63, 94, 0.2);
     --accent-water: #0ea5e9;
@@ -29,7 +27,6 @@
     --radius: 16px;
     --container: 1200px;
 
-    /* Typography */
     --font-head: 'Outfit', sans-serif;
     --font-body: 'Inter', sans-serif;
 }
@@ -180,10 +177,8 @@ ul {
     transform: translateY(0) scale(0.98);
 }
 
-/* SVG Icon Styling */
 svg.icon {
     width: 2.5em;
-    /* Increased default size for custom SVGs */
     height: 2.5em;
     vertical-align: middle;
 }
@@ -1612,7 +1607,6 @@ svg.icon {
     transform: translateY(0);
 }
 
-/* Performance optimizations */
 .hero-title,
 .hero-subtitle,
 .btn {
