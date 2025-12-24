@@ -6,7 +6,6 @@
     --primary-glow: rgba(139, 92, 246, 0.25);
     --secondary: #06b6d4;
 
-    /* Elemental Accents */
     --accent-fire: #f43f5e;
     --accent-fire-glow: rgba(244, 63, 94, 0.2);
     --accent-water: #0ea5e9;
@@ -16,7 +15,6 @@
     --accent-air: #f59e0b;
     --accent-air-glow: rgba(245, 158, 11, 0.2);
 
-    /* Neutrals - Premium Slate */
     --bg-dark: #0f172a;
     --bg-light: #f8fafc;
     --bg-glass: rgba(255, 255, 255, 0.85);
