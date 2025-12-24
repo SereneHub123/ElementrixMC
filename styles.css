@@ -6,6 +6,7 @@
     --primary-glow: rgba(139, 92, 246, 0.25);
     --secondary: #06b6d4;
 
+    /* Elemental Accents */
     --accent-fire: #f43f5e;
     --accent-fire-glow: rgba(244, 63, 94, 0.2);
     --accent-water: #0ea5e9;
@@ -399,6 +400,7 @@ svg.icon {
     color: var(--text-muted);
     user-select: none;
     transition: all 0.3s ease;
+    text-decoration: none;
 }
 
 [data-theme="dark"] .server-pill {
