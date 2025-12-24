@@ -1,10 +1,10 @@
-/* sum js (WORKKKK ON PROGRESS ;-; */
+/* sum js */
 
-// config & constants 
+// config & constants (feel free to tweak)
 const SERVER_IP = "play.elementrix.it";
 const API_URL = "https://api.mcsrvstat.us/2/" + SERVER_IP;
-const DISCORD_URL = "https://dsc.gg/elementrixmc"; // best server
-const STORE_URL = "#"; 
+const DISCORD_URL = "https://discord.com/invite/YOURCODE"; // Replace with real link
+const STORE_URL = "#";
 const VOTE_URL = "#";
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -30,9 +30,7 @@ function initThemeToggle() {
         const isDark = theme === 'dark';
         toggle.setAttribute('aria-pressed', isDark ? 'true' : 'false');
         toggle.title = isDark ? 'Switch to light mode' : 'Switch to dark mode';
-        // swap simple icon (sun/moon)
         if (icon) {
-            
             icon.innerHTML = isDark
                 ? `
                     <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
@@ -49,7 +47,6 @@ function initThemeToggle() {
                     <path d="M17.66 6.34l1.41-1.41"></path>
                 `;
         }
-        // Announce for assistive tech
         const statusEl = document.getElementById('theme-status');
         if (statusEl) statusEl.innerText = isDark ? 'Dark mode enabled' : 'Light mode enabled';
     }
@@ -60,7 +57,6 @@ function initThemeToggle() {
         applyTheme(next);
     }
 
-    // initialize from storage or system preference
     const stored = localStorage.getItem('theme');
     if (stored) applyTheme(stored);
     else {
@@ -71,7 +67,6 @@ function initThemeToggle() {
     toggle.addEventListener('click', toggleTheme);
 }
 
-/* ping server (status) */
 function initServerStatus() {
     const statusText = document.getElementById("status-text");
     const playerCount = document.getElementById("player-count");
@@ -87,35 +82,37 @@ function initServerStatus() {
         .then(data => {
             if (data.online) {
                 // Server is Online
-                statusText.innerText = "Online";
-                statusText.style.color = "var(--accent-earth)";
-                
-                playerCount.innerText = data.players.online;
-                maxPlayers.innerText = data.players.max;
-                
+                if (statusText) {
+                    statusText.innerText = "Online";
+                    statusText.style.color = "var(--accent-earth)";
+                }
+
+                if (playerCount) playerCount.innerText = data.players.online;
+                if (maxPlayers) maxPlayers.innerText = data.players.max;
+
                 // Update Badge in Navbar
-                if(navCount) navCount.innerText = `${data.players.online} Online`;
-                
+                if (navCount) navCount.innerText = `${data.players.online} Online`;
+
                 // Update Indicator
-                indicator.classList.add("online");
+                if (indicator) indicator.classList.add("online");
 
                 // Small celebration burst on the card (subtle)
                 const statusCard = document.querySelector('.status-card');
                 if (statusCard) {
-                    statusCard.classList.add('online','status-burst');
+                    statusCard.classList.add('online', 'status-burst');
                     setTimeout(() => statusCard.classList.remove('status-burst'), 900);
                 }
-                
+
                 // Update Version
-                if(versionElement) versionElement.innerText = data.version;
+                if (versionElement) versionElement.innerText = data.version;
 
                 // Update Icon if exists
-                if(data.icon && iconElement) {
+                if (data.icon && iconElement) {
                     iconElement.src = data.icon;
                 }
 
                 // Clean MOTD (Remove color codes)
-                if (data.motd && data.motd.clean) {
+                if (data.motd && data.motd.clean && motdElement) {
                     motdElement.innerText = data.motd.clean.join(" ");
                 }
             } else {
@@ -129,25 +126,26 @@ function initServerStatus() {
         });
 
     function setOfflineStatus() {
-        statusText.innerText = "Offline";
-        statusText.style.color = "var(--accent-fire)";
-        indicator.classList.add("offline");
-        if(navCount) navCount.innerText = "Offline";
-        motdElement.innerText = "Server is currently offline.";
+        if (statusText) {
+            statusText.innerText = "Offline";
+            statusText.style.color = "var(--accent-fire)";
+        }
+        if (indicator) indicator.classList.add("offline");
+        if (navCount) navCount.innerText = "Offline";
+        if (motdElement) motdElement.innerText = "Server is currently offline.";
     }
 }
 
 /* copy IP: clipboard magic */
 function initCopyButtons() {
     const copyButtons = document.querySelectorAll("[data-copy-ip]");
-    
+
     copyButtons.forEach(btn => {
         btn.addEventListener("click", () => {
             navigator.clipboard.writeText(SERVER_IP).then(() => {
-                // Button-specific visuals (kept for smaller context)
                 const originalText = btn.innerHTML;
                 const isMini = btn.classList.contains('mini-ip-box');
-                
+
                 if (isMini) {
                     const hint = btn.querySelector(".copy-hint");
                     const originalHint = hint ? hint.innerText : '';
@@ -174,7 +172,6 @@ function initCopyButtons() {
                     }, 2000);
                 }
             }).catch(err => {
-                // fallback: alert the user (toaster removed)
                 console.error('Copy failed', err);
                 alert('Copy failed. IP: ' + SERVER_IP);
             });
@@ -183,7 +180,6 @@ function initCopyButtons() {
 }
 
 
-/* reveal-on-scroll (pretty) */
 function initScrollAnimations() {
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
@@ -198,7 +194,6 @@ function initScrollAnimations() {
     });
 }
 
-/* wire external links (discord/store/vote) */
 function initLinks() {
     document.querySelectorAll("[data-discord-link]").forEach(el => el.href = DISCORD_URL);
     document.querySelectorAll("[data-store-link]").forEach(el => el.href = STORE_URL);
@@ -207,7 +202,8 @@ function initLinks() {
 
 /* utils & helpers */
 function updateFooterYear() {
-    document.getElementById("footer-year").innerText = new Date().getFullYear();
+    const yearEl = document.getElementById("footer-year");
+    if (yearEl) yearEl.innerText = new Date().getFullYear();
 }
 
 function scrollToTop() {
@@ -217,13 +213,12 @@ function scrollToTop() {
 function initMobileMenu() {
     const toggle = document.querySelector(".mobile-menu-toggle");
     const nav = document.querySelector(".nav-links");
-    
-    if(toggle && nav) {
+
+    if (toggle && nav) {
         toggle.addEventListener("click", () => {
             nav.classList.toggle("active");
         });
-        
-        // Close on link click
+
         nav.querySelectorAll("a").forEach(link => {
             link.addEventListener("click", () => {
                 nav.classList.remove("active");
