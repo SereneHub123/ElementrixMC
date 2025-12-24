@@ -3,7 +3,7 @@
 // config & constants (feel free to tweak)
 const SERVER_IP = "play.elementrix.it";
 const API_URL = "https://api.mcsrvstat.us/2/" + SERVER_IP;
-const DISCORD_URL = "https://discord.com/invite/YOURCODE"; // Replace with real link
+const DISCORD_URL = "https://dsc.gg/elementrixmc
 const STORE_URL = "#";
 const VOTE_URL = "#";
 
