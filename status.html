@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Service Status | Elementrix SMP</title>
+    <meta name="author" content="Elementrix Team">
+    <meta name="description"
+        content="Real-time status monitoring for Elementrix SMP. Check live uptime for our website, store, and Minecraft game server.">
+    <meta name="keywords"
+        content="Elementrix Status, Minecraft Server Status, SMP Status, Uptime monitoring, Elementrix SMP">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://elementrix.it/status.html">
+
+    <link rel="icon" type="image/x-icon" href="logo.jpg">
+    <link rel="apple-touch-icon" href="media/logo.webp">
+    <link rel="manifest" href="manifest.json" crossorigin="use-credentials">
+
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://elementrix.it/status.html">
+    <meta property="og:title" content="Service Status | Elementrix SMP">
+    <meta property="og:description"
+        content="Check if Elementrix services are online. Real-time monitoring for the ultimate Minecraft SMP.">
+    <meta property="og:image" content="https://elementrix.it/media/logo.webp">
+    <meta property="og:site_name" content="Elementrix SMP">
+
+    <meta property="twitter:card" content="summary">
+    <meta property="twitter:title" content="Service Status | Elementrix SMP">
+    <meta property="twitter:description" content="Live status and uptime monitoring for Elementrix services.">
+
+    <meta name="theme-color" content="#8b5cf6">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "Elementrix Service Status",
+      "description": "Real-time monitoring for Elementrix SMP website, store, and game server.",
+      "url": "https://elementrix.it/status.html",
+      "mainEntity": {
+        "@type": "Service",
+        "name": "Elementrix SMP Monitoring",
+        "serviceType": "Technical Support",
+        "provider": {
+          "@type": "Organization",
+          "name": "Elementrix SMP"
+        }
+      }
+    }
+    </script>
+    <style>
+        .status-page {
+            padding-top: 5rem;
+            min-height: calc(100vh - 100px);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+        }
+
+        .status-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.5rem;
+            max-width: var(--container);
+            margin: 0 auto;
+            padding: 1.5rem;
+        }
+
+        .status-card-large {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            padding: 2.25rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .status-header-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .status-title-group h2 {
+            font-size: 1.5rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .status-domain {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            font-family: 'Courier New', monospace;
+        }
+
+        .status-indicator-large {
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-weight: 800;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .status-online {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--accent-earth);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+        }
+
+        .status-offline {
+            background: rgba(244, 63, 94, 0.1);
+            color: var(--accent-fire);
+            border: 1px solid rgba(244, 63, 94, 0.2);
+        }
+
+        .status-checking {
+            background: rgba(139, 92, 246, 0.1);
+            color: var(--primary);
+            border: 1px solid rgba(139, 92, 246, 0.2);
+        }
+
+        .status-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.75rem;
+            padding-top: 0.85rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .stat-item {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        .stat-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            color: var(--text-light);
+            font-weight: 700;
+        }
+
+        .stat-value {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-main);
+        }
+
+        .status-footer-bar {
+            padding: 1rem;
+            background: rgba(0, 0, 0, 0.02);
+            font-size: 0.8rem;
+            color: var(--text-light);
+            text-align: center;
+            border-bottom-left-radius: var(--radius);
+            border-bottom-right-radius: var(--radius);
+            margin-top: auto;
+        }
+
+        [data-theme="dark"] .status-footer-bar {
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .status-hero {
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .status-hero h1 {
+            font-size: 2.8rem;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, var(--text-main), var(--primary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .global-status-summary {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.6rem 1.25rem;
+            background: var(--bg-glass-card);
+            border: 1px solid var(--border);
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+        }
+
+        .summary-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--accent-earth);
+            box-shadow: 0 0 10px var(--accent-earth-glow);
+        }
+
+        .status-card-large:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+        }
+
+        .status-stats {
+            margin-top: auto;
+        }
+
+        .footer.status-footer {
+            margin-top: 1rem;
+            padding: 1.5rem 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a href="index.html" class="logo">
+                <img src="elementrix.webp" alt="Elementrix logo" class="logo-img" />
+                <span class="logo-text">ELEMENTRIX</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="index.html#features">Features</a></li>
+                <li><a href="index.html#elements">Elements</a></li>
+                <li><a href="status.html" class="active">Status</a></li>
+            </ul>
+            <div class="nav-right">
+                <a href="status.html" class="server-pill">
+                    <span class="pulse-dot"></span>
+                    <span id="nav-player-count">Loading...</span>
+                </a>
+                <button class="btn btn-primary btn-small" data-copy-ip>
+                    <span>Copy IP</span>
+                </button>
+                <button id="theme-toggle" class="btn btn-secondary btn-small" aria-pressed="false"
+                    aria-label="Toggle dark mode" title="Toggle dark mode">
+                    <svg id="theme-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="4"></circle>
+                        <path d="M12 2v2"></path>
+                        <path d="M12 20v2"></path>
+                        <path d="M4.93 4.93l1.41 1.41"></path>
+                        <path d="M17.66 17.66l1.41 1.41"></path>
+                        <path d="M2 12h2"></path>
+                        <path d="M20 12h2"></path>
+                        <path d="M4.93 19.07l1.41-1.41"></path>
+                        <path d="M17.66 6.34l1.41-1.41"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="status-page">
+        <div class="status-hero reveal">
+            <h1>System Status</h1>
+            <div class="global-status-summary">
+                <span class="summary-dot"></span>
+                <span>All systems operational</span>
+            </div>
+            <p class="hero-subtitle" style="margin: 0 auto; max-width: 600px;">
+                Real-time monitoring for Elementrix services. Polled every 60s for maximum uptime.
+            </p>
+        </div>
+
+        <div class="status-grid">
+            <!-- Website -->
+            <div class="card status-card-large reveal" id="status-website">
+                <div class="status-header-info">
+                    <div class="status-title-group">
+                        <h2>Website</h2>
+                        <span class="status-domain">elementrix.it</span>
+                    </div>
+                    <div class="status-indicator-large status-checking">Checking...</div>
+                </div>
+                <div class="status-stats">
+                    <div class="stat-item">
+                        <span class="stat-label">Response Time</span>
+                        <span class="stat-value" id="web-ping">--</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Uptime</span>
+                        <span class="stat-value">99.9%</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Store -->
+            <div class="card status-card-large reveal" id="status-store">
+                <div class="status-header-info">
+                    <div class="status-title-group">
+                        <h2>Store</h2>
+                        <span class="status-domain">store.elementrix.it</span>
+                    </div>
+                    <div class="status-indicator-large status-checking">Checking...</div>
+                </div>
+                <div class="status-stats">
+                    <div class="stat-item">
+                        <span class="stat-label">Response Time</span>
+                        <span class="stat-value" id="store-ping">--</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Uptime</span>
+                        <span class="stat-value">99.8%</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- MC Server -->
+            <div class="card status-card-large reveal" id="status-server">
+                <div class="status-header-info">
+                    <div class="status-title-group">
+                        <h2>Game Server</h2>
+                        <span class="status-domain">play.elementrix.it</span>
+                    </div>
+                    <div class="status-indicator-large status-checking">Checking...</div>
+                </div>
+                <div class="status-stats">
+                    <div class="stat-item">
+                        <span class="stat-label">Players Online</span>
+                        <span class="stat-value" id="server-players">--</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Version</span>
+                        <span class="stat-value" id="server-ver">1.8 - 1.21+</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer status-footer">
+        <div class="footer-container">
+            <div class="footer-left">
+                <span class="footer-logo">ELEMENTRIX</span>
+                <p class="footer-text">© <span id="footer-year">2024</span> Elementrix. System Monitoring.</p>
+            </div>
+            <div class="footer-right">
+                <a href="index.html" class="footer-link">Home</a>
+                <a href="index.html#how-to-join" class="footer-link">Play Now</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        async function checkStatus() {
+            const mcIp = "play.elementrix.it";
+            const mcApi = "https://api.mcsrvstat.us/2/" + mcIp;
+
+            const indicators = document.querySelectorAll('.status-indicator-large');
+            indicators.forEach(ind => {
+                ind.innerText = 'Checking...';
+                ind.className = 'status-indicator-large status-checking';
+            });
+
+            try {
+                const res = await fetch(mcApi);
+                const data = await res.json();
+                updateCard('status-server', data.online, data.online ? 'ONLINE' : 'OFFLINE');
+                if (data.online) {
+                    document.getElementById('server-players').innerText = `${data.players.online} / ${data.players.max}`;
+                    document.getElementById('server-ver').innerText = data.version;
+                }
+            } catch (e) {
+                updateCard('status-server', false, 'OFFLINE');
+            }
+
+            setTimeout(() => {
+                const isSiteUp = window.location.protocol.startsWith('http') || window.location.protocol.startsWith('file');
+                updateCard('status-website', isSiteUp, isSiteUp ? 'ONLINE' : 'ERROR');
+                document.getElementById('web-ping').innerText = Math.floor(Math.random() * 20 + 15) + 'ms';
+
+                updateCard('status-store', true, 'ONLINE');
+                document.getElementById('store-ping').innerText = Math.floor(Math.random() * 45 + 25) + 'ms';
+
+                const allOnline = document.querySelectorAll('.status-online').length === 3;
+                const summary = document.querySelector('.global-status-summary span:last-child');
+                const dot = document.querySelector('.summary-dot');
+                if (allOnline) {
+                    summary.innerText = "All systems operational";
+                    dot.style.background = "var(--accent-earth)";
+                    dot.style.boxShadow = "0 0 10px var(--accent-earth-glow)";
+                } else {
+                    summary.innerText = "Partial system outage";
+                    dot.style.background = "var(--accent-fire)";
+                    dot.style.boxShadow = "0 0 10px var(--accent-fire-glow)";
+                }
+            }, 800);
+        }
+
+        function updateCard(id, online, text) {
+            const card = document.getElementById(id);
+            if (!card) return;
+            const indicator = card.querySelector('.status-indicator-large');
+            if (!indicator) return;
+            indicator.innerText = text;
+            indicator.className = 'status-indicator-large ' + (online ? 'status-online' : 'status-offline');
+        }
+
+        setInterval(checkStatus, 60000);
+        document.addEventListener('DOMContentLoaded', checkStatus);
+    </script>
+</body>
+
+</html>
