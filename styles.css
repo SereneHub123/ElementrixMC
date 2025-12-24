@@ -599,6 +599,11 @@ ul {
     gap: 0.5rem;
 }
 
+.feature-list li:hover {
+    text-shadow: 2px 3px 5px lightblue;
+    scale: 1.01;
+}
+
 .alt-bg {
     background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(99, 102, 241, 0.03) 100%);
 }
